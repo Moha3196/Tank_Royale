@@ -1,13 +1,12 @@
-
 mapfileData  
 ***********
 `
 meta
 -----
-* mapzies
-* spawnpoints
-* MaxHP
-* BulletRate
+* mapzies = int[2]
+* spawnpoints [[int[2]],...] [[x,y],[x,y],[x,y]]
+* MaxHP int[2]
+* BulletRate 
 * BulletDmg
 * BaseBulletSpeed
 * BaseMovementspeed
