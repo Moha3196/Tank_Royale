@@ -1,0 +1,13 @@
+int[] mapzies;
+int[][] spawnpoints;
+int MaxHP;
+float FireRate;
+int BulletDmg;
+float BulletSpeed;
+float Movementspeed;
+int MaxPlayers;
+float PlayerRadius;
+boolean CheatsEnabled = true;
+String[] EnabledPowurups;
+int UpdateRate;
+int Chunksize;
