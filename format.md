@@ -1,37 +1,37 @@
 mapfileData  
 ***********
-`
+
 meta
 -----
 * mapzies = int[2]
 * spawnpoints [[int[2]],...] [[x,y],[x,y],[x,y]]
 * MaxHP int
-* BulletRate float 
-* BulletDmg float
-* BaseBulletSpeed float
-* BaseMovementspeed float
+* FireRate float 
+* BulletDmg int
+* BulletSpeed float
+* Movementspeed float
 * MaxPlayers int
 * PlayerRadius float
-* CheatsEnabled=True
-* *EnabledPowurups:[...]
+* CheatsEnabled = True
+* *EnabledPowurups: [...]
 * UpdateRate  int 
 * Chunksize  int 
 `
 
 objekt
 -------
-`
+
 * shape *rect, circl, image *, *polygons  [str]
 * shapeArguments (xywh) (xyr) (xy"location",xscalar,yscalar)  
 * collidable  [bool]
 * bulletPentration  bool
-`
+
 
 JavaObject Data  
 ***************
 Player  
 -----------
-`
+
 * Id  int
 * Pos  int[2]
 * DisplayName str  
@@ -43,4 +43,3 @@ Player
 * _CurrentChunk  int[2]
 
 
-`
