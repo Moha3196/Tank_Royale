@@ -1,0 +1,21 @@
+{"meta": {
+  "BulletDMG": 35,
+  "MaxHP": 50,
+  "PlayerRadius": 30,
+  "FireRate": 0.75,
+  "MapSize": [
+    1024,
+    1024
+  ],
+  "MovementSpeed": 1,
+  "MaxPlayers": 0,
+  "ChunkSize": 4,
+  "updateRate": 30,
+  "CheatsEnabled": false,
+  "EnabledPowurups": [],
+  "BulletSpeed": 1.7000000476837158,
+  "SpawnPoints": [[
+    30,
+    30
+  ]]
+}}
