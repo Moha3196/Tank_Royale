@@ -10,7 +10,7 @@ class Entity{
   
   boolean clearNextFrame = false;
   
-  World world;
+  World world = new World();
   
   
   void Render() {
@@ -46,7 +46,7 @@ class Entity{
   
   void addHP(int amount){
     if(HP + amount <= 0) {return;}
-    HP = amount + HP % world.MaxHP;
+    HP = amount + HP % world.gd.MaxHP;
     
     
   }

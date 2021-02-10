@@ -18,7 +18,7 @@ meta
 * Chunksize  int 
 `
 
-objekt
+object
 -------
 
 * shape *rect, circl, image *, *polygons  [str]

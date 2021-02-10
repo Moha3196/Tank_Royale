@@ -98,7 +98,7 @@ class GameData {
 
     //Updaterate
     metaJson.setInt("updateRate",30);
-    json.setJSONObject("meta", metaJson);
+    json.setJSONObject("meta", metaJson); //<>//
     saveJSONObject(json, "new.json");
   }
 
