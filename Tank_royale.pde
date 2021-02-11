@@ -10,7 +10,7 @@ void setup() {
     gd.export();
   }
   long elapsedT = System.nanoTime() - startT; 
-  print("elapsedtime:" + elapsedT/1000000000+ " ms");
+  println("elapsedtime:" + elapsedT/1000000000+ " ms");
 }
 
 void draw() {

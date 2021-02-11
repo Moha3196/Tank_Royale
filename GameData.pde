@@ -1,4 +1,4 @@
-
+ //<>// //<>//
 class Player {
   int Id;
   int[] Pos;
@@ -24,10 +24,8 @@ class GameData {
   String[] EnabledPowurups;
   int UpdateRate;
   int Chunksize;
-  
-  GameData (){
-    
-    
+
+  GameData () {
   }
 
 
@@ -52,19 +50,12 @@ class GameData {
     // spawns
     JSONArray spawnP = new JSONArray();
     JSONArray spawnPs = new JSONArray();
-    assert(MaxPlayers <= SpawnPoints.size());
     for (int i = 0; i < SpawnPoints.size(); i++) {
       spawnP = new JSONArray();
       spawnP.append(SpawnPoints.get(i)[0]); //x
       spawnP.append(SpawnPoints.get(i)[1]); //y
       spawnPs.append(spawnP);
     }
-
-
-    spawnP = new JSONArray();
-    spawnP.append(30); //x
-    spawnP.append(30); //y
-    spawnPs.append(spawnP);
     metaJson.setJSONArray("SpawnPoints", spawnPs);
 
     //maxHP
@@ -97,8 +88,8 @@ class GameData {
     //means 4x4
 
     //Updaterate
-    metaJson.setInt("updateRate",30);
-    json.setJSONObject("meta", metaJson); //<>//
+    metaJson.setInt("updateRate", 30);
+    json.setJSONObject("meta", metaJson);
     saveJSONObject(json, "new.json");
   }
 
@@ -108,14 +99,17 @@ class GameData {
 
     JSONArray mapSize = meta.getJSONArray("MapSize");
     MapSize[0] = mapSize.getInt(0);
-    MapSize[0] = mapSize.getInt(1);
+    MapSize[1] = mapSize.getInt(1);
 
+
+    MaxPlayers = meta.getInt("MaxPlayers");
 
     JSONArray spawns = meta.getJSONArray("SpawnPoints");
     SpawnPoints.clear();
-    for (int i = 0; i < spawns.size(); i++) { //<>//
+    println(spawns.size());
+    for (int i = 0; i < spawns.size(); i++) {
       JSONArray spawn = spawns.getJSONArray(i);
-      //assert(spawn.getJSONArray(i).size() == 2);
+      assert(spawn.size() == 2);
       int[] newInt = new int[2];
       newInt[0] = spawn.getInt(0);
       newInt[1] = spawn.getInt(1);
@@ -128,7 +122,6 @@ class GameData {
     BulletDmg = meta.getInt("BulletDMG");
     BulletSpeed = meta.getFloat("BulletSpeed");
     Movementspeed = meta.getFloat("MovementSpeed");
-    MaxPlayers = meta.getInt("MaxPlayers");
     PlayerRadius = meta.getFloat("PlayerRadius");
     CheatsEnabled = meta.getBoolean("CheatsEnabled");
     EnabledPowurups = meta.getJSONArray("EnabledPowurups").getStringArray();
