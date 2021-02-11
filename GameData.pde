@@ -1,14 +1,15 @@
- //<>// //<>//
+//<>// //<>//
 class Player {
-  int Id;
-  int[] Pos;
-  String DisplayName;
-  int HP;
-  String CurrentPowerup;
-  int TimeSincePowerupObtained;
-  int Kills;
-  float[] Velocity;
-  int[] CurrentChunk;
+  boolean self = true;
+  int Id = 0;
+  int[] Pos = {0, 0};
+  String DisplayName = "player1";
+  int HP = 100;
+  String CurrentPowerup = "";
+  int TimeSincePowerupObtained = -1;
+  int Kills = 0;
+  float[] Velocity = {0, 0};
+  int[] CurrentChunk = {0, 0};
 }
 class GameData {
   int[] MapSize = {1024, 1024};
@@ -90,6 +91,10 @@ class GameData {
     //Updaterate
     metaJson.setInt("updateRate", 30);
     json.setJSONObject("meta", metaJson);
+
+
+
+
     saveJSONObject(json, "new.json");
   }
 
@@ -106,7 +111,6 @@ class GameData {
 
     JSONArray spawns = meta.getJSONArray("SpawnPoints");
     SpawnPoints.clear();
-    println(spawns.size());
     for (int i = 0; i < spawns.size(); i++) {
       JSONArray spawn = spawns.getJSONArray(i);
       assert(spawn.size() == 2);
