@@ -1,50 +1,80 @@
 import hypermedia.net.*;
 
-static class Session {
-  
-  static enum Status{
-    unConnected,
-    connected,
-    running,
-    terminated
+interface Status {
+    char
+      unConnected= '0', 
+      connected  = '1', 
+      running    = '2', 
+      terminated = '3';
   }
-  static enum PacketType{
-    connectionRequest,
-    firstGameState,
-    playerCommand,
-    gameState,
-    terminate
+
+  interface PacketType {
+    char
+      connectionRequest = '0', 
+      firstGameState    = '1', 
+      playerCommand     = '2', 
+      gameState         = '3', 
+      terminate         = '4';
   }
-  
-  Status status = Status.unConnected;
-  static String IP;
-  static String nickName;
-  static int port = 4206;
-  static UDP udp;
-  
+
+class Session {  
+
+
+  char status = Status.unConnected;
+  String ServerIP;
+  int ServerPort = 4206;
+  String SelfIP;
+  int SelfPort = 4206;
+  UDP udp;
+  String nickName;
+
+
   Session(String _nickName, String _IP, int _port) {
     nickName = _nickName;
-    IP = _IP;
-    port = _port;
+    ServerIP = _IP;
+    ServerPort = _port;
     connect();
   }
   Session(String _nickName, String _IP) {
     nickName = _nickName;
-    IP = _IP;
+    ServerIP = _IP;
     connect();
   }
-  
-  void connect(){
-    println(1);
-    udp = new UDP(this, 4206, IP);
-    udp.send(PacketType.connectionRequest + nickName);
+
+  void connect() {
+    println("binding UDP socket");
+    udp = new UDP(this, SelfPort, SelfIP);
+    println("sending connectionRequest");
+    udp.send(PacketType.connectionRequest + nickName, ServerIP, ServerPort);
+    status = Status.connected;
+  }
+
+  void receive(byte[] data) {
+    char PType = char(data[0]);
+    switch(status) {
+      case(Status.connected):
+        if(PType == PacketType.firstGameState){
+          receiveFirstGD(data);
+        }
+      break;
+      case(Status.running):
+        
+      break;
+    default:
+      return;
+    }
   }
   
-  static void sendPlayerCommand(){
+  void loadGamedata(byte[] data, int start, int end){
+    saveBytes("gamestate.json", data);
+    gd.load();
+  }
+  
+  void receiveFirstGD(byte[] data){
     
   }
-  
-  static void end(){
-    udp.close();
+
+  void sendPlayerCMDs() {
   }
+  
 }

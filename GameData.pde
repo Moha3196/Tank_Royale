@@ -95,11 +95,11 @@ class GameData {
 
 
 
-    saveJSONObject(json, "new.json");
+    saveJSONObject(json, "gamestate.json");
   }
 
   void load() {
-    JSONObject json = loadJSONObject("new.json");
+    JSONObject json = loadJSONObject("gamestate.json");
     JSONObject meta = json.getJSONObject("meta");
 
     JSONArray mapSize = meta.getJSONArray("MapSize");
