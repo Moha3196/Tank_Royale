@@ -1,53 +1,44 @@
-class Entity{
+class Entity {
   PVector pos = new PVector(); 
   PVector vel = new PVector();
-  
-  //speculative position
-  PVector specPos = new PVector();
-  
-  int HP;
-  
-  
+
+  float size;
+
+
   boolean clearNextFrame = false;
-  
-  World world = new World();
-  
-  
+
+  World world;
+
+ 
+
   void Render() {
     noStroke();
     fill(#d1d1d3);
-    circle(pos.x, pos.y, 10);
+    circle(pos.x, pos.y, size);
   }
-  
-  
-  void Move() {}
-  
-  
+
+
+  void Move() {
+    
+
+    pos.x += vel.x;
+    pos.y += vel.y;
+  }
+
+
   void CheckCollisions() {
     for (Entity e : world.Entities) {
-      
     }
   }
-  
-  
+
+
   void Collide(Entity e) {
   }
 
   void Update() {
   }
+
+
+
   
-  
-  void slow() {
-    if (vel.mag() > 2.5) {
-      vel.mult(0.993);
-    }
-  }
-  
-  
-  void addHP(int amount){
-    if(HP + amount <= 0) {return;}
-    HP = amount + HP % world.gd.MaxHP;
-    
-    
-  }
 }
