@@ -26,11 +26,23 @@ class Player extends Entity {
   void Move() {
     if (isSelf) {
       if (keyPressed) {
-        final int k = keyCode;
-        if (k == LEFT  | k == 'A') vel.x = -world.MovementSpeed;
-        if (k == RIGHT | k == 'D') vel.x =  world.MovementSpeed;
-        if (k == UP    | k == 'W') vel.y = -world.MovementSpeed;
-        if (k == DOWN  | k == 'S') vel.y =  world.MovementSpeed;
+        //final int k = keyCode;
+        printArray(keyInputs);
+        println();
+        if (keyInputs[1]) { 
+          vel.x = -world.MovementSpeed;
+        } else if (keyInputs[3]) { 
+          vel.x =  world.MovementSpeed;
+        } else {
+          vel.x = 0;
+        }
+        if (keyInputs[0]) { 
+          vel.y = -world.MovementSpeed;
+        } else if (keyInputs[2]) { 
+          vel.y =  world.MovementSpeed;
+        } else {
+          vel.y = 0;
+        }
       } else {
         vel.x = 0;
         vel.y = 0;
