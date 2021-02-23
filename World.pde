@@ -2,7 +2,7 @@ class World {
   int[] MapSize = {1024, 1024};
   ArrayList<int[]> SpawnPoints = new ArrayList<int[]>(3);
   int MaxHP = 50;
-  float FireRate = 0.75;
+  float FireRate = 3;
   int BulletDmg = 35;
   float BulletSpeed = 5;
   int BulletSize = 10;
@@ -15,6 +15,7 @@ class World {
   //int Chunksize = 4;
   Player self;
   LinkedList<Entity> Entities = new LinkedList<Entity>();
+  LinkedList<GameObject> GameObjects = new LinkedList<GameObject>();
 
 
   //Demo
@@ -23,6 +24,7 @@ class World {
     SpawnPoints.add(new int[] {300, 400});
     SpawnPoints.add(new int[] {600, 30});
     Entities.add(new Player(this, SpawnPoints.get(0), true));
+    Entities.add(new Player(this, SpawnPoints.get(1), false));
     self = (Player)Entities.get(0);
   }
 
