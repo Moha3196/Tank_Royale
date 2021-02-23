@@ -31,7 +31,7 @@ JavaObject Data
 ***************
 Player  
 -----------
-
+* self boolean
 * Id  int
 * Pos  int[2]
 * DisplayName str  

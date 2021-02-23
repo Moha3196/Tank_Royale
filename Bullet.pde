@@ -8,6 +8,7 @@ class Bullet extends Entity {
     owner = player;
     world = player.world;
     size = world.BulletSize;
+    dmg = world.BulletDmg;
   }
 
   void Render() {
@@ -19,33 +20,32 @@ class Bullet extends Entity {
 
   void Collide(Entity e) {
     if(e instanceof Player){
+      Kill();
     }
   }
 
   void Collide(GameObject g) {
   }
 
-  void CheckCollision(Entity e) {
-    if(e instanceof Player){
-      if(pos.dist(e.pos) < e.size + size){
-        Collide(e);
-        e.Collide(this);
-      }
-    }
-  }
+  //void CheckCollision(Entity e) {
+  //  if(e instanceof Player){
+  //    if(pos.dist(e.pos) < e.size + size){
+  //      Collide(e);
+  //      e.Collide(this);
+  //    }
+  //  }
+  //}
 
-  void CheckCollision(GameObject g) {
-    //if(e instanceof Player){
-    //  if(pos.dist(e.pos) < e.size + size){
-    //    Collide(e);
-    //    e.Collide(this);
-    //  }
-    //}
-  }
+  //void CheckCollision(GameObject g) {
+  //}
 
   void CheckCollision(World w) {
-    if(pos.x < 0 || pos.x > world.MapSize[0] || pos.y < 0 || pos.y > world.MapSize[1]){
+    if(pos.x < 0 || pos.x > w.MapSize[0] || pos.y < 0 || pos.y > w.MapSize[1]){
       Kill();
     }
+  }
+  
+  void CheckCollisions() {
+    CheckCollision(world);
   }
 }

@@ -17,8 +17,17 @@ class Entity {
   void Move() {
     pos.x += vel.x;
     pos.y += vel.y;
+    //println(vel);
   }
 
+  void Collide(World w) {
+  }
+
+  void CheckCollision(World w) {
+  }
+
+  void CheckCollision(Entity e) {
+  }
 
   void CheckCollisions() {
   }
