@@ -1,26 +1,21 @@
 class Entity {
   PVector pos = new PVector(); 
   PVector vel = new PVector();
-
-  float size;
-
-
   boolean clearNextFrame = false;
+  int size;
 
   World world;
 
- 
+
 
   void Render() {
     noStroke();
     fill(#d1d1d3);
-    circle(pos.x, pos.y, size);
+    circle(pos.x, pos.y, world.PlayerSize);
   }
 
 
   void Move() {
-    
-
     pos.x += vel.x;
     pos.y += vel.y;
   }
@@ -38,7 +33,7 @@ class Entity {
   void Update() {
   }
 
-
-
-  
+  void Kill() {
+    clearNextFrame = true;
+  }
 }

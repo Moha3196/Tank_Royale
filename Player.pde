@@ -8,6 +8,7 @@ class Player extends Entity {
   boolean isSelf;
   //int[] CurrentChunk;
 
+
   Player(World world_, int[] spawn, boolean self) {
     pos.x = spawn[0];
     pos.y = spawn[1];
@@ -19,16 +20,26 @@ class Player extends Entity {
     noStroke();
     fill(#FF0000);
     float[] realPos = world.relPos(pos.x, pos.y);
-    circle(realPos[0], realPos[1], size);
+    fill(0);
+    circle(realPos[0], realPos[1], world.PlayerSize);
   }
 
+  void Shoot() {
+    if (keyInputs[4]) {
+      float[] realPos = world.relPos(pos.x, pos.y);
+      float[] diffVector = {realPos[0] - mouseX, realPos[1] - mouseY};
+      PVector bulletVel = new PVector(-diffVector[0], -diffVector[1]).setMag(world.BulletSpeed);
+      PVector bulletPos = new PVector(realPos[0], realPos[1]);
+      world.Entities.add(new Bullet(this, bulletPos, bulletVel));
+    }
+  }
 
   void Move() {
     if (isSelf) {
       if (keyPressed) {
         //final int k = keyCode;
-        printArray(keyInputs);
-        println();
+        //printArray(keyInputs);
+        //println();
         if (keyInputs[1]) { 
           vel.x = -world.MovementSpeed;
         } else if (keyInputs[3]) { 

@@ -4,9 +4,11 @@ class World {
   int MaxHP = 50;
   float FireRate = 0.75;
   int BulletDmg = 35;
-  float BulletSpeed = 1.7;
-  float MovementSpeed = 5;
+  float BulletSpeed = 5;
+  int BulletSize = 10;
+  float MovementSpeed = 2;
   int MaxPlayers = 3;
+  int PlayerSize = 30;
   //boolean CheatsEnabled = true;
   //String[] EnabledPowurups;
   int UpdateRate = 30;
@@ -42,6 +44,7 @@ class World {
       e.CheckCollisions(); 
       e.Update();
     }
+    self.Shoot();
     cleanEntites();
   }
 
@@ -58,8 +61,6 @@ class World {
   }
 
   float[] relPos(float x, float y) {
-
-
     return new float[]{x - self.pos.x + width/2, y - self.pos.y + height/2};
   }
 }

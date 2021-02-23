@@ -3,10 +3,10 @@ import java.util.*;
 
 //Entity ent = new Entity();
 World world = new World();
-boolean[] keyInputs = {false, false, false, false};
+boolean[] keyInputs = {false, false, false, false, false};
 
 void setup() {
-  size(1024, 1024);
+  size(800, 600);
   frameRate(120);
   long startT = System.nanoTime();
   long elapsedT = System.nanoTime() - startT; 
@@ -19,6 +19,14 @@ void draw() {
   //ent.Render();
 }
 
+
+void mousePressed() {
+  keyInputs[4] = true;
+}
+
+void mouseReleased() {
+  keyInputs[4] = false;
+}
 
 void keyPressed() {
   switch (keyCode) {
