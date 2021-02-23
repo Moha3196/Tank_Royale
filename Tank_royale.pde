@@ -8,9 +8,6 @@ boolean[] keyInputs = {false, false, false, false, false};
 void setup() {
   size(800, 600);
   frameRate(120);
-  long startT = System.nanoTime();
-  long elapsedT = System.nanoTime() - startT; 
-  println("elapsedtime:" + elapsedT/1000000000+ " ms");
 }
 
 void draw() {

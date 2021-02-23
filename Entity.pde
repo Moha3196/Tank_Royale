@@ -7,7 +7,6 @@ class Entity {
   World world;
 
 
-
   void Render() {
     noStroke();
     fill(#d1d1d3);
@@ -22,8 +21,6 @@ class Entity {
 
 
   void CheckCollisions() {
-    for (Entity e : world.Entities) {
-    }
   }
 
 

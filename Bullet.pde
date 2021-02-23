@@ -1,6 +1,5 @@
 class Bullet extends Entity {
   int dmg;
-  //int bulletSize;
   Player owner;
 
   Bullet(Player player, PVector position, PVector velocity) {
@@ -14,7 +13,8 @@ class Bullet extends Entity {
   void Render() {
     noStroke();
     fill(#000000);
-    circle(pos.x, pos.y, size);
+    float[] relpos = world.relPos(pos.x, pos.y);
+    circle(relpos[0], relpos[1], size);
   }
 
   void Collide(Entity e) {

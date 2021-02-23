@@ -20,7 +20,6 @@ class Player extends Entity {
     noStroke();
     fill(#FF0000);
     float[] realPos = world.relPos(pos.x, pos.y);
-    fill(0);
     circle(realPos[0], realPos[1], world.PlayerSize);
   }
 
@@ -29,8 +28,7 @@ class Player extends Entity {
       float[] realPos = world.relPos(pos.x, pos.y);
       float[] diffVector = {realPos[0] - mouseX, realPos[1] - mouseY};
       PVector bulletVel = new PVector(-diffVector[0], -diffVector[1]).setMag(world.BulletSpeed);
-      PVector bulletPos = new PVector(realPos[0], realPos[1]);
-      world.Entities.add(new Bullet(this, bulletPos, bulletVel));
+      world.Entities.add(new Bullet(this, pos, bulletVel));
     }
   }
 

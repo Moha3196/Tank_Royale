@@ -4,7 +4,7 @@ class World {
   int MaxHP = 50;
   float FireRate = 0.75;
   int BulletDmg = 35;
-  float BulletSpeed = 5;
+  float BulletSpeed = 0.04;
   int BulletSize = 10;
   float MovementSpeed = 2;
   int MaxPlayers = 3;
@@ -41,11 +41,11 @@ class World {
     for (Entity e : Entities) {
       e.Render();
       e.Move();
-      e.CheckCollisions(); 
-      e.Update();
+      //e.CheckCollisions(); 
+      //e.Update();
     }
     self.Shoot();
-    cleanEntites();
+    //cleanEntites();
   }
 
 
