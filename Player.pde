@@ -92,6 +92,10 @@ class Player extends Entity {
 
   void Collide(World w) {
   }
+  
+  void Collide(GameObject g) {
+    pos.x -= 1;
+  }
 
   @Override
     void CheckCollision(Entity e) {

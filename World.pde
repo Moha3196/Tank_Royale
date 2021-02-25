@@ -4,7 +4,7 @@ class World {
   int MaxHP = 50;
   float FireRate = 3;
   int BulletDmg = 35;
-  float BulletSpeed = 5;
+  float BulletSpeed = 1;
   int BulletSize = 10;
   float MovementSpeed = 2;
   int MaxPlayers = 3;
@@ -25,6 +25,7 @@ class World {
     SpawnPoints.add(new int[] {600, 30});
     Entities.add(new Player(this, SpawnPoints.get(0), true));
     Entities.add(new Player(this, SpawnPoints.get(1), false));
+    GameObjects.add(new Wall(this, new PVector(333,20), new PVector(300,100), 120, 5));
     self = (Player)Entities.get(0);
   }
 
@@ -45,6 +46,11 @@ class World {
       e.Move();
       e.CheckCollisions(); 
       e.Update();
+    }
+    
+    for (GameObject g : GameObjects) {
+      g.Render();
+      g.CheckCollisions(); 
     }
     self.Shoot();
     cleanEntites();

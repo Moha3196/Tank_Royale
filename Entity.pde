@@ -24,6 +24,12 @@ class Entity {
   void Collide(World w) {
   }
 
+  void Collide(Entity e) {
+  }
+
+  void Collide(GameObject g) {
+  }
+
   void CheckCollision(World w) {
   }
 
@@ -34,8 +40,7 @@ class Entity {
   }
 
 
-  void Collide(Entity e) {
-  }
+
 
   void Update() {
   }
