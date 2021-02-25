@@ -5,16 +5,19 @@ import java.util.*;
 World world = new World();
 boolean[] keyInputs = {false, false, false, false, false};
 
+  long start;
+
 void setup() {
   size(800, 600);
-  frameRate(120);
+  frameRate(144);
 }
 
 void draw() {
+  start = System.nanoTime();
   background(254);
   world.Run();
-  //ent.Render();
-}
+  println("frame took : " + (System.nanoTime()- start)/1000000.0 + "ms \tPot Framerate: " + 1.0/((System.nanoTime()- start)/1000000000.0));
+  }
 
 
 void mousePressed() {

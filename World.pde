@@ -2,11 +2,11 @@ class World {
   int[] MapSize = {1024, 1024};
   ArrayList<int[]> SpawnPoints = new ArrayList<int[]>(3);
   int MaxHP = 50;
-  float FireRate = 3;
+  float FireRate = 10000;
   int BulletDmg = 35;
-  float BulletSpeed = 0.04;
-  int BulletSize = 10;
-  float MovementSpeed = 2;
+  float BulletSpeed = 10;
+  int BulletSize = 5;
+  float MovementSpeed = 3.5;
   int MaxPlayers = 3;
   int PlayerSize = 30;
   //boolean CheatsEnabled = true;
