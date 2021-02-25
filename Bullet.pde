@@ -19,12 +19,15 @@ class Bullet extends Entity {
   }
 
   void Collide(Entity e) {
-    if(e instanceof Player){
+    if (e instanceof Player) {
       Kill();
     }
   }
 
   void Collide(GameObject g) {
+    if (g instanceof GameObject) {
+      Kill();
+    }
   }
 
   //void CheckCollision(Entity e) {
@@ -36,15 +39,18 @@ class Bullet extends Entity {
   //  }
   //}
 
-  //void CheckCollision(GameObject g) {
-  //}
+  void CheckCollision(GameObject g) {
+    if (g instanceof Wall) {
+      
+    }
+  }
 
   void CheckCollision(World w) {
-    if(pos.x < 0 || pos.x > w.MapSize[0] || pos.y < 0 || pos.y > w.MapSize[1]){
+    if (pos.x < 0 || pos.x > w.MapSize[0] || pos.y < 0 || pos.y > w.MapSize[1]) {
       Kill();
     }
   }
-  
+
   void CheckCollisions() {
     CheckCollision(world);
   }

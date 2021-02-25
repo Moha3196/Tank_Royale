@@ -4,9 +4,15 @@ class World {
   int MaxHP = 50;
   float FireRate = 10000;
   int BulletDmg = 35;
+<<<<<<< HEAD
   float BulletSpeed = 10;
   int BulletSize = 5;
   float MovementSpeed = 3.5;
+=======
+  float BulletSpeed = 1;
+  int BulletSize = 10;
+  float MovementSpeed = 2;
+>>>>>>> 76a46ef5c9c752cd1d68b99b808107963d9a3914
   int MaxPlayers = 3;
   int PlayerSize = 30;
   //boolean CheatsEnabled = true;
@@ -25,6 +31,7 @@ class World {
     SpawnPoints.add(new int[] {600, 30});
     Entities.add(new Player(this, SpawnPoints.get(0), true));
     Entities.add(new Player(this, SpawnPoints.get(1), false));
+    GameObjects.add(new Wall(this, new PVector(333,20), new PVector(300,100), 120, 5));
     self = (Player)Entities.get(0);
   }
 
@@ -45,6 +52,11 @@ class World {
       e.Move();
       //e.CheckCollisions(); 
       //e.Update();
+    }
+    
+    for (GameObject g : GameObjects) {
+      g.Render();
+      g.CheckCollisions(); 
     }
     self.Shoot();
     //cleanEntites();
