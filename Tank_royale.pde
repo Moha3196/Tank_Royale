@@ -4,13 +4,21 @@ import java.util.*;
 //Entity ent = new Entity();
 World world = new World();
 boolean[] keyInputs = {false, false, false, false, false};
+long start;
 
-  long start;
+GameData gd = new GameData();
+Session session = new Session("ole", "192.168.0.27");
+
 
 void setup() {
   size(800, 600);
   frameRate(144);
-}
+/* 
+* Save the lord
+* https://stackoverflow.com/questions/1931466/sending-an-object-over-the-internet
+*/
+
+
 
 void draw() {
   start = System.nanoTime();
@@ -76,4 +84,8 @@ void keyReleased() {
     keyInputs[3] = false;
     break;
   }
+}
+
+void close(){
+  Session.close();
 }
