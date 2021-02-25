@@ -67,7 +67,7 @@ class Session {
   
   void loadGamedata(byte[] data, int start, int end){
     saveBytes("gamestate.json", data);
-    gd.load();
+    
   }
   
   void receiveFirstGD(byte[] data){
