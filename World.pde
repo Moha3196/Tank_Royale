@@ -53,7 +53,7 @@ class World {
       g.CheckCollisions(); 
     }
     self.Shoot();
-    //cleanEntites();
+    cleanEntites();
   }
 
 
