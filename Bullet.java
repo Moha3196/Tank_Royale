@@ -1,13 +1,12 @@
 import processing.core.*;
 
 
-class Bullet extends Entity {
+class Bullet extends Entity  {
   int dmg;
   Player owner;
 
   Bullet(PApplet a, Player player, PVector position, PVector velocity) {
-    app = a;
-    g = app.g;
+    bind(a);
     pos = position;
     vel = velocity;
     owner = player;

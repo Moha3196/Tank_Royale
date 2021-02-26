@@ -9,13 +9,20 @@ long start;
 PApplet app = this;
 
 Session session = new Session("ole", "192.168.0.27");
-World world = new World(app);
+World world1 = new World(app);
+World world;
 
 
 void setup() {
   println();
   size(800, 600);
   frameRate(144);
+  byte[] bb = session.Serialize(world1);
+  world = (World)session.deSerialize(bb);
+  
+  world.bind(this);
+  
+
 }
 /* 
 * Save the lord
@@ -28,7 +35,7 @@ void draw() {
   start = System.nanoTime();
   background(254);
   world.Run();
-  println("frame took : " + (System.nanoTime()- start)/1000000.0 + "ms \tPot Framerate: " + 1.0/((System.nanoTime()- start)/1000000000.0));
+  //println("frame took : " + (System.nanoTime()- start)/1000000.0 + "ms \tPot Framerate: " + 1.0/((System.nanoTime()- start)/1000000000.0));
   }
 
 

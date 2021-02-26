@@ -1,8 +1,7 @@
-import java.io.Serializable;
 import processing.core.PApplet;
 import processing.core.*;
 import java.util.*;
-
+import java.io.*;
 
 class World implements Serializable {
   int[] MapSize = {1024, 1024};
@@ -22,8 +21,8 @@ class World implements Serializable {
   Player self;
   LinkedList<Entity> Entities = new LinkedList<Entity>();
   LinkedList<GameObject> GameObjects = new LinkedList<GameObject>();
-  PApplet app;
-  PGraphics g; 
+  transient PApplet app;
+  transient PGraphics g; 
 
   boolean[] playerInputs = new boolean[5];
 
@@ -31,8 +30,7 @@ class World implements Serializable {
 
   //Demo
   World(PApplet PApp) {
-    app = PApp;
-    g = app.g;
+    bind(PApp);
     SpawnPoints.add(new int[] {20, 30});
     SpawnPoints.add(new int[] {300, 400});
     SpawnPoints.add(new int[] {600, 30});
@@ -42,6 +40,17 @@ class World implements Serializable {
     self = (Player)Entities.get(0);
   }
 
+  void bind (PApplet a) {
+    app = a;
+    g = app.g;
+    for(Entity e : Entities){
+      e.bind(app);
+    }
+    for(GameObject g : GameObjects){
+      g.bind(app);
+    }
+  }
+
   void Render() {
     float[] leftCorner = relPos(0, 0);
     float[] rightCorner = relPos(MapSize[0], MapSize[1]);
@@ -49,14 +58,14 @@ class World implements Serializable {
     app.stroke(5);
     app.rect(leftCorner[0], leftCorner[1], rightCorner[0] - leftCorner[0], rightCorner[1] - leftCorner[1]);
 
-    
+
     for (int x = 0; x < MapSize[0]; x += 64 ) {
       for (int y = 0; y < MapSize[1]; y  += 64 ) {
-      float[] relPos = relPos(x,y);
-      app.stroke(255);
-      app.strokeWeight(1);
-      app.fill(200);
-      app.rect(relPos[0], relPos[1], 64, 64);
+        float[] relPos = relPos(x, y);
+        app.stroke(255);
+        app.strokeWeight(1);
+        app.fill(200);
+        app.rect(relPos[0], relPos[1], 64, 64);
       }
     }
   }

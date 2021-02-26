@@ -2,8 +2,10 @@ import processing.core.PApplet;
 import processing.core.*;
 import java.util.*;
 import java.lang.Math.*;
+import java.io.*;
 
-class Player extends Entity {
+
+class Player extends Entity{
   int Id;
   String DisplayName;
   int HP;
@@ -16,8 +18,7 @@ class Player extends Entity {
 
 
   Player(PApplet appp, World world_, int[] spawn, boolean self) {
-    app = appp;
-    g = appp.g;
+    bind(appp);
     pos.x = spawn[0];
     pos.y = spawn[1];
     isSelf = self;

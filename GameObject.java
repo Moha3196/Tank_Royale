@@ -1,18 +1,19 @@
 import java.util.*;
 import processing.core.*;
 import java.lang.Math.*;
+import java.io.*;
 
-class GameObject {
+class GameObject implements Serializable{
   PVector pos = new PVector();
   World world;
 
-  PApplet app;
-  PGraphics g;   
+  transient PApplet app;
+  transient PGraphics g;   
 
-//  GameObject(PApplet a, World w) {
-//    app = a;
-//    g = a.g;
-//  }
+void bind (PApplet a) {
+    app = a;
+    g = app.g;
+  }
 
   void Render() {
   }

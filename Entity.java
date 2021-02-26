@@ -1,14 +1,15 @@
 import processing.core.*;
 
+import java.io.*;
 
-class Entity {
+class Entity implements Serializable{
   PVector pos = new PVector(); 
   PVector vel = new PVector();
   boolean clearNextFrame = false;
   int size;
   
-  PApplet app;
-  PGraphics g; 
+  transient PApplet app;
+  transient PGraphics g; 
 
   World world;
 
@@ -18,7 +19,11 @@ class Entity {
     g.fill(0xd1d1d3);
     g.circle(pos.x, pos.y, world.PlayerSize);
   }
-
+  
+  void bind (PApplet a) {
+    app = a;
+    g = app.g;
+  }
 
   void Move() {
     pos.x += vel.x;
