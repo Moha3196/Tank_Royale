@@ -1,6 +1,18 @@
+import java.util.*;
+import processing.core.*;
+import java.lang.Math.*;
+
 class GameObject {
   PVector pos = new PVector();
   World world;
+
+  PApplet app;
+  PGraphics g;   
+
+//  GameObject(PApplet a, World w) {
+//    app = a;
+//    g = a.g;
+//  }
 
   void Render() {
   }
@@ -21,23 +33,25 @@ class GameObject {
 
 class Wall extends GameObject {
   PVector endPos = new PVector();
-  color Color;
+  int Color;
   int thick;
 
-  Wall(World w, PVector startPos, PVector EndPos, color Clr, int Thickness) {
+  Wall(PApplet a, World w, PVector startPos, PVector EndPos, int Clr, int Thickness) {
     pos = startPos;
     endPos = EndPos;
     Color = Clr;
     thick = Thickness;
     world = w;
+
+    app = a;
   }
 
   void Render() {
-    stroke(Color);
-    strokeWeight(thick);
+    g.stroke(Color);
+    g.strokeWeight(thick);
     float[] realStartPos = world.relPos(pos.x, pos.y);
     float[] realEndPos = world.relPos(endPos.x, endPos.y);
-    line(realStartPos[0], realStartPos[1], realEndPos[0], realEndPos[1]);
+    g.line(realStartPos[0], realStartPos[1], realEndPos[0], realEndPos[1]);
   }
 
 
@@ -63,10 +77,9 @@ class Wall extends GameObject {
     } else if (AB.dot(AE) < 0) {
       distance = AB.mag();
     } else {
-      distance = abs((endPos.x - pos.x)*(pos.y - e.pos.y) - (pos.x - e.pos.x)*(endPos.y - pos.y))/
-        sqrt(sq(endPos.x - pos.x) + sq(endPos.y - pos.y));
+      float up = (endPos.x - pos.x)*(pos.y - e.pos.y) - (pos.x - e.pos.x) * (endPos.y - pos.y);
+      distance = Math.abs(up)/(float) Math.sqrt(Math.pow((endPos.x - pos.x), 2) + Math.pow(endPos.y - pos.y, 2));
     }
-    println(distance);
 
     if (distance < e.size/2 + thick/2) {
       e.Collide(this);
@@ -75,6 +88,15 @@ class Wall extends GameObject {
   }
 
   void CheckCollisions() {
+
+    //Iterator iter = Entities.iterator();
+    //Entity e;
+    //while (iter.hasNext()) {
+    //  e = (Entity)iter.next();
+    //  if (e.clearNextFrame) {
+    //    iter.remove();
+    //  }
+    //}
     for (Entity e : world.Entities) {
       CheckCollision(e);
     }

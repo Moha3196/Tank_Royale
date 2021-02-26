@@ -1,16 +1,22 @@
+import processing.core.*;
+
+
 class Entity {
   PVector pos = new PVector(); 
   PVector vel = new PVector();
   boolean clearNextFrame = false;
   int size;
+  
+  PApplet app;
+  PGraphics g; 
 
   World world;
 
 
   void Render() {
-    noStroke();
-    fill(#d1d1d3);
-    circle(pos.x, pos.y, world.PlayerSize);
+    g.noStroke();
+    g.fill(0xd1d1d3);
+    g.circle(pos.x, pos.y, world.PlayerSize);
   }
 
 

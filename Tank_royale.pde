@@ -1,15 +1,20 @@
 import java.util.LinkedList;
 import java.util.*;
 
-//Entity ent = new Entity();
-World world = new World();
+
+
+//Entity ent = new Entity
 boolean[] keyInputs = {false, false, false, false, false};
 long start;
 
+PApplet app = this;
+
 Session session = new Session("ole", "192.168.0.27");
+World world = new World(app);
 
 
 void setup() {
+  println();
   size(800, 600);
   frameRate(144);
 }

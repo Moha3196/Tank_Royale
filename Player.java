@@ -1,3 +1,6 @@
+import processing.core.*;
+
+
 class Player extends Entity {
   int Id;
   String DisplayName;
@@ -10,7 +13,9 @@ class Player extends Entity {
   //int[] CurrentChunk;
 
 
-  Player(World world_, int[] spawn, boolean self) {
+  Player(PApplet appp, World world_, int[] spawn, boolean self) {
+    app = appp;
+    g = appp.g;
     pos.x = spawn[0];
     pos.y = spawn[1];
     isSelf = self;
@@ -20,43 +25,43 @@ class Player extends Entity {
   }
 
   void Render() {
-    noStroke();
+    g.noStroke();
     if (isSelf) {
-      fill(#0000FF);
+      g.fill(0x0000FF);
     } else {
-      fill(#FF0000);
+      g.fill(0xFF0000);
     }
 
     float[] realPos = world.relPos(pos.x, pos.y);
-    circle(realPos[0], realPos[1], size);
+    g.circle(realPos[0], realPos[1], size);
   }
 
   void Shoot() {
     if (isSelf) {
-      if (keyInputs[4] && millis()-lastTimeShot > 1.0/world.FireRate*1000) {
+      if (world.playerInputs[4] && app.millis()-lastTimeShot > 1.0/world.FireRate*1000) {
         float[] realPos = world.relPos(pos.x, pos.y);
-        float[] diffVector = {realPos[0] - mouseX, realPos[1] - mouseY};
+        float[] diffVector = {realPos[0] - app.mouseX, realPos[1] - app.mouseY};
         PVector bulletVel = new PVector(-diffVector[0], -diffVector[1]).setMag(world.BulletSpeed);
         world.Entities.add(new Bullet(this, pos.copy(), bulletVel));
         //world.Entities.add(new Bullet(this, pos, bulletVel));
-        lastTimeShot = millis();
+        lastTimeShot = app.millis();
       }
     }
   }
 
   void Move() {
     if (isSelf) {
-      if (keyPressed) {
-        if (keyInputs[1]) { 
+      if (app.keyPressed) {
+        if (world.playerInputs[1]) { 
           vel.x = -world.MovementSpeed;
-        } else if (keyInputs[3]) { 
+        } else if (world.playerInputs[3]) { 
           vel.x =  world.MovementSpeed;
         } else {
           vel.x = 0;
         }
-        if (keyInputs[0]) { 
+        if (world.playerInputs[0]) { 
           vel.y = -world.MovementSpeed;
-        } else if (keyInputs[2]) { 
+        } else if (world.playerInputs[2]) { 
           vel.y =  world.MovementSpeed;
         } else {
           vel.y = 0;
@@ -68,7 +73,7 @@ class Player extends Entity {
     }
     pos.x += vel.x;
     pos.y += vel.y;
-    
+
     PVector specPos = new PVector(pos.x + vel.x, pos.y + vel.y);
     if (specPos.x > world.MapSize[0] - size/2) {
       pos.x = world.MapSize[0] - size/2;
@@ -92,7 +97,7 @@ class Player extends Entity {
 
   void Collide(World w) {
   }
-  
+
   void Collide(GameObject g) {
     pos.x -= 1;
   }
