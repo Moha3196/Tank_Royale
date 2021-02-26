@@ -25,7 +25,7 @@ class World implements Serializable{
   PApplet app;
   PGraphics g; 
   
-  Boolean[] playerInputs = new  Boolean[5];
+  boolean[] playerInputs = new boolean[5];
   
   
 
@@ -37,25 +37,25 @@ class World implements Serializable{
     SpawnPoints.add(new int[] {300, 400});
     SpawnPoints.add(new int[] {600, 30});
     Entities.add(new Player(app, this, SpawnPoints.get(0), true));
-    //Entities.add(new Player(app, this, SpawnPoints.get(1), false));
-    //GameObjects.add(new Wall(app, this, new PVector(333,20), new PVector(300,100), 120, 5));
+    Entities.add(new Player(app, this, SpawnPoints.get(1), false));
+    GameObjects.add(new Wall(app, this, new PVector(333,20), new PVector(300,100), 120, 5));
     self = (Player)Entities.get(0);
   }
 
   void Render() {
     float[] leftCorner = relPos(0, 0);
     float[] rightCorner = relPos(MapSize[0], MapSize[1]);
-    g.noFill();
-    g.stroke(5);
-    g.rect(leftCorner[0], leftCorner[1], rightCorner[0] - leftCorner[0], rightCorner[1] - leftCorner[1]);
+    app.noFill();
+    app.stroke(5);
+    app.rect(leftCorner[0], leftCorner[1], rightCorner[0] - leftCorner[0], rightCorner[1] - leftCorner[1]);
   }
 
 
 
   void Run() {
-    //Render();
+    Render();
     for (Entity e : Entities) {
-      //e.Render();
+      e.Render();
       e.Move();
       e.CheckCollisions(); 
       e.Update();

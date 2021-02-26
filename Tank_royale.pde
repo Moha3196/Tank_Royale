@@ -4,7 +4,6 @@ import java.util.*;
 
 
 //Entity ent = new Entity
-boolean[] keyInputs = {false, false, false, false, false};
 long start;
 
 PApplet app = this;
@@ -34,33 +33,33 @@ void draw() {
 
 
 void mousePressed() {
-  keyInputs[4] = true;
+  world.playerInputs[4] = true;
 }
 
 void mouseReleased() {
-  keyInputs[4] = false;
+  world.playerInputs[4] = false;
 }
 
 void keyPressed() {
   switch (keyCode) {
   case 87:
   case UP:
-    keyInputs[0] = true;
+    world.playerInputs[0] = true;
     break;
 
   case 65:
   case LEFT:
-    keyInputs[1] = true;
+    world.playerInputs[1] = true;
     break;
 
   case 83:
   case DOWN:
-    keyInputs[2] = true;
+    world.playerInputs[2] = true;
     break;
 
   case 68:
   case RIGHT:
-    keyInputs[3] = true;
+    world.playerInputs[3] = true;
     break;
   }
 }
@@ -71,22 +70,22 @@ void keyReleased() {
   switch (keyCode) {
   case 87:
   case UP:
-    keyInputs[0] = false;
+    world.playerInputs[0] = false;
     break;
 
   case 65:
   case LEFT:
-    keyInputs[1] = false;
+    world.playerInputs[1] = false;
     break;
 
   case 83:
   case DOWN:
-    keyInputs[2] = false;
+    world.playerInputs[2] = false;
     break;
 
   case 68:
   case RIGHT:
-    keyInputs[3] = false;
+    world.playerInputs[3] = false;
     break;
   }
 }

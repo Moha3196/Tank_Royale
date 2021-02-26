@@ -42,16 +42,17 @@ class Wall extends GameObject {
     Color = Clr;
     thick = Thickness;
     world = w;
-
     app = a;
+    g = app.g;      
+    
   }
 
   void Render() {
-    g.stroke(Color);
-    g.strokeWeight(thick);
+    app.stroke(Color);
+    app.strokeWeight(thick);
     float[] realStartPos = world.relPos(pos.x, pos.y);
     float[] realEndPos = world.relPos(endPos.x, endPos.y);
-    g.line(realStartPos[0], realStartPos[1], realEndPos[0], realEndPos[1]);
+    app.line(realStartPos[0], realStartPos[1], realEndPos[0], realEndPos[1]);
   }
 
 

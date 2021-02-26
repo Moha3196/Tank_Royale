@@ -1,5 +1,7 @@
+import processing.core.PApplet;
 import processing.core.*;
-
+import java.util.*;
+import java.lang.Math.*;
 
 class Player extends Entity {
   int Id;
@@ -25,15 +27,15 @@ class Player extends Entity {
   }
 
   void Render() {
-    g.noStroke();
+    app.noStroke();
     if (isSelf) {
-      g.fill(0x0000FF);
+      app.fill(0);
     } else {
-      g.fill(0xFF0000);
+      app.fill(120);
     }
 
     float[] realPos = world.relPos(pos.x, pos.y);
-    g.circle(realPos[0], realPos[1], size);
+    app.circle(realPos[0], realPos[1], size);
   }
 
   void Shoot() {
@@ -42,7 +44,7 @@ class Player extends Entity {
         float[] realPos = world.relPos(pos.x, pos.y);
         float[] diffVector = {realPos[0] - app.mouseX, realPos[1] - app.mouseY};
         PVector bulletVel = new PVector(-diffVector[0], -diffVector[1]).setMag(world.BulletSpeed);
-        world.Entities.add(new Bullet(this, pos.copy(), bulletVel));
+        world.Entities.add(new Bullet(app, this, pos.copy(), bulletVel));
         //world.Entities.add(new Bullet(this, pos, bulletVel));
         lastTimeShot = app.millis();
       }

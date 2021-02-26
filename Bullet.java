@@ -5,8 +5,9 @@ class Bullet extends Entity {
   int dmg;
   Player owner;
 
-  Bullet(Player player, PVector position, PVector velocity) {
-    
+  Bullet(PApplet a, Player player, PVector position, PVector velocity) {
+    app = a;
+    g = app.g;
     pos = position;
     vel = velocity;
     owner = player;
