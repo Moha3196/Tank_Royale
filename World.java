@@ -4,11 +4,11 @@ import processing.core.*;
 import java.util.*;
 
 
-class World implements Serializable{
+class World implements Serializable {
   int[] MapSize = {1024, 1024};
   ArrayList<int[]> SpawnPoints = new ArrayList<int[]>(3);
   int MaxHP = 50;
-  float FireRate = 10000;
+  float FireRate =(float) 3.0;
   int BulletDmg = 35;
   float BulletSpeed = 10;
   int BulletSize = 5;
@@ -24,10 +24,10 @@ class World implements Serializable{
   LinkedList<GameObject> GameObjects = new LinkedList<GameObject>();
   PApplet app;
   PGraphics g; 
-  
+
   boolean[] playerInputs = new boolean[5];
-  
-  
+
+
 
   //Demo
   World(PApplet PApp) {
@@ -38,7 +38,7 @@ class World implements Serializable{
     SpawnPoints.add(new int[] {600, 30});
     Entities.add(new Player(app, this, SpawnPoints.get(0), true));
     Entities.add(new Player(app, this, SpawnPoints.get(1), false));
-    GameObjects.add(new Wall(app, this, new PVector(333,20), new PVector(300,100), 120, 5));
+    GameObjects.add(new Wall(app, this, new PVector(333, 20), new PVector(300, 100), 120, 5));
     self = (Player)Entities.get(0);
   }
 
@@ -48,6 +48,16 @@ class World implements Serializable{
     app.noFill();
     app.stroke(5);
     app.rect(leftCorner[0], leftCorner[1], rightCorner[0] - leftCorner[0], rightCorner[1] - leftCorner[1]);
+
+    
+    for (int x = 0; x < MapSize[0]; x += 16 ) {
+      for (int y = 0; y < MapSize[1]; y  += 16 ) {
+      float[] relPos = relPos(x,y);
+      app.stroke(255);
+      app.fill(100, 100);
+      app.rect(relPos[0], relPos[1], 16, 16);
+      }
+    }
   }
 
 
@@ -60,10 +70,10 @@ class World implements Serializable{
       e.CheckCollisions(); 
       e.Update();
     }
-    
+
     for (GameObject g : GameObjects) {
       g.Render();
-      g.CheckCollisions(); 
+      g.CheckCollisions();
     }
     self.Shoot();
     cleanEntites();
