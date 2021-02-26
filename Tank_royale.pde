@@ -35,7 +35,7 @@ void draw() {
   start = System.nanoTime();
   background(254);
   world.Run();
-  //println("frame took : " + (System.nanoTime()- start)/1000000.0 + "ms \tPot Framerate: " + 1.0/((System.nanoTime()- start)/1000000000.0));
+  println("frame took : " + (System.nanoTime()- start)/1000000.0 + "ms \tPot Framerate: " + 1.0/((System.nanoTime()- start)/1000000000.0));
   }
 
 

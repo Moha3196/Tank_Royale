@@ -5,7 +5,7 @@ import java.lang.Math.*;
 import java.io.*;
 
 
-class Player extends Entity{
+class Player extends Entity {
   int Id;
   String DisplayName;
   int HP;
@@ -28,6 +28,10 @@ class Player extends Entity{
   }
 
   void Render() {
+    if (isSelf) {
+      app.fill(0);
+      app.text(pos.x + "   " + pos.y + "\n" + vel.x + "   " + vel.y, 0, 10);
+    }
     app.noStroke();
     if (isSelf) {
       app.fill(0, 0, 255);
@@ -73,7 +77,7 @@ class Player extends Entity{
         vel.x = 0;
         vel.y = 0;
       }
-      
+
       vel.setMag(world.MovementSpeed);
     }
     pos.x += vel.x;
@@ -104,7 +108,6 @@ class Player extends Entity{
   }
 
   void Collide(GameObject g) {
-    pos.x -= 1;
   }
 
   @Override

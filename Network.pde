@@ -20,7 +20,6 @@ interface Status {
 
 class Session {  
 
-
   char status = Status.unConnected;
   String ServerIP;
   int ServerPort = 4206;
