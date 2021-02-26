@@ -29,9 +29,9 @@ class Player extends Entity {
   void Render() {
     app.noStroke();
     if (isSelf) {
-      app.fill(0);
+      app.fill(0, 0, 255);
     } else {
-      app.fill(120);
+      app.fill(255, 0, 0);
     }
 
     float[] realPos = world.relPos(pos.x, pos.y);
@@ -55,16 +55,16 @@ class Player extends Entity {
     if (isSelf) {
       if (app.keyPressed) {
         if (world.playerInputs[1]) { 
-          vel.x = -world.MovementSpeed;
+          vel.x = -1;
         } else if (world.playerInputs[3]) { 
-          vel.x =  world.MovementSpeed;
+          vel.x =  1;
         } else {
           vel.x = 0;
         }
         if (world.playerInputs[0]) { 
-          vel.y = -world.MovementSpeed;
+          vel.y = -1;
         } else if (world.playerInputs[2]) { 
-          vel.y =  world.MovementSpeed;
+          vel.y =  1;
         } else {
           vel.y = 0;
         }
@@ -72,6 +72,8 @@ class Player extends Entity {
         vel.x = 0;
         vel.y = 0;
       }
+      
+      vel.setMag(world.MovementSpeed);
     }
     pos.x += vel.x;
     pos.y += vel.y;
