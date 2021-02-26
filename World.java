@@ -50,12 +50,13 @@ class World implements Serializable {
     app.rect(leftCorner[0], leftCorner[1], rightCorner[0] - leftCorner[0], rightCorner[1] - leftCorner[1]);
 
     
-    for (int x = 0; x < MapSize[0]; x += 16 ) {
-      for (int y = 0; y < MapSize[1]; y  += 16 ) {
+    for (int x = 0; x < MapSize[0]; x += 64 ) {
+      for (int y = 0; y < MapSize[1]; y  += 64 ) {
       float[] relPos = relPos(x,y);
       app.stroke(255);
-      app.fill(100, 100);
-      app.rect(relPos[0], relPos[1], 16, 16);
+      app.strokeWeight(1);
+      app.fill(200);
+      app.rect(relPos[0], relPos[1], 64, 64);
       }
     }
   }
