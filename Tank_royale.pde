@@ -9,25 +9,17 @@ long start;
 PApplet app = this;
 
 Session session = new Session("ole", "192.168.0.27");
-World world1 = new World(app);
-World world;
-
+World world = new World(app);
 
 void setup() {
   println();
   size(800, 600);
   frameRate(144);
-  byte[] bb = session.Serialize(world1);
-  world = (World)session.deSerialize(bb);
-  
-  world.bind(this);
-  
-
 }
 /* 
-* Save the lord
-* https://stackoverflow.com/questions/1931466/sending-an-object-over-the-internet
-*/
+ * Save the lord
+ * https://stackoverflow.com/questions/1931466/sending-an-object-over-the-internet
+ */
 
 
 
@@ -35,8 +27,11 @@ void draw() {
   start = System.nanoTime();
   background(254);
   world.Run();
-  println("frame took : " + (System.nanoTime()- start)/1000000.0 + "ms \tPot Framerate: " + 1.0/((System.nanoTime()- start)/1000000000.0));
-  }
+  fill(0, 90);
+  text("FPS:" + int(1.0/((System.nanoTime()- start)/1000000000.0)), width -56, 15);
+
+  
+}
 
 
 void mousePressed() {
