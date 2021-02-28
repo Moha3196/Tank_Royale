@@ -5,10 +5,10 @@ import java.lang.Math.*;
 import java.io.*;
 
 
-class Player extends Entity{
+class Player extends Entity {
   int Id;
   String DisplayName;
-  int HP;
+  float HP;
   //String CurrentPowerup;
   //int TimeSincePowerupObtained;
   int Kills;
@@ -37,6 +37,14 @@ class Player extends Entity{
 
     float[] realPos = world.relPos(pos.x, pos.y);
     app.circle(realPos[0], realPos[1], size);
+    
+    //Damaged HP bar
+    app.fill(255, 0, 0);
+    app.rect(realPos[0]-size, realPos[1]-size, size*2, size/4);
+    
+    //Currnet HP bar
+    app.fill(0, 255, 0);
+    app.rect(realPos[0]-size, realPos[1]-size, size*2/world.MaxHP*HP, size/4);
   }
 
   void Shoot() {
@@ -73,7 +81,7 @@ class Player extends Entity{
         vel.x = 0;
         vel.y = 0;
       }
-      
+
       vel.setMag(world.MovementSpeed);
     }
     pos.x += vel.x;
@@ -104,7 +112,7 @@ class Player extends Entity{
   }
 
   void Collide(GameObject g) {
-    pos.x -= 1;
+    //pos.x -= 2;
   }
 
   @Override
@@ -157,6 +165,6 @@ class Player extends Entity{
       Kill();
       return;
     }
-    HP = amount + HP % world.MaxHP;
+    HP = amount + HP;
   }
 }
