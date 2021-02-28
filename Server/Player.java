@@ -8,7 +8,7 @@ import java.io.*;
 class Player extends Entity {
   int Id;
   String DisplayName;
-  float HP;
+  int HP;
   //String CurrentPowerup;
   //int TimeSincePowerupObtained;
   int Kills;
@@ -41,14 +41,6 @@ class Player extends Entity {
 
     float[] realPos = world.relPos(pos.x, pos.y);
     app.circle(realPos[0], realPos[1], size);
-    
-    //Damaged HP bar
-    app.fill(255, 0, 0);
-    app.rect(realPos[0]-size, realPos[1]-size, size*2, size/4);
-    
-    //Currnet HP bar
-    app.fill(0, 255, 0);
-    app.rect(realPos[0]-size, realPos[1]-size, size*2/world.MaxHP*HP, size/4);
   }
 
   void Shoot() {
@@ -168,6 +160,6 @@ class Player extends Entity {
       Kill();
       return;
     }
-    HP = amount + HP;
+    HP = amount + HP % world.MaxHP;
   }
 }

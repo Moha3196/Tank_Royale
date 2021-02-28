@@ -116,15 +116,18 @@ class World implements Serializable {
     app.stroke(5);
     app.rect(leftCorner[0], leftCorner[1], rightCorner[0] - leftCorner[0], rightCorner[1] - leftCorner[1]);
 
-
+    app.fill(200);
+    app.stroke(30,30);
+    app.strokeWeight(1);
     for (int x = 0; x < MapSize[0]; x += 64 ) {
-      for (int y = 0; y < MapSize[1]; y  += 64 ) {
-        float[] relPos = relPos(x, y);
-        app.stroke(255);
-        app.strokeWeight(1);
-        app.fill(200);
-        app.rect(relPos[0], relPos[1], 64, 64);
-      }
+      float[] relPos1 = relPos(x, 0);
+      float[] relPos2 = relPos(x, MapSize[1]);
+      app.line(relPos1[0], relPos1[1], relPos2[0], relPos2[1]);
+    }
+    for (int y = 0; y < MapSize[1]; y += 64 ) {
+      float[] relPos1 = relPos(0, y);
+      float[] relPos2 = relPos(MapSize[0], y);
+      app.line(relPos1[0], relPos1[1], relPos2[0], relPos2[1]);
     }
   }
 
@@ -160,6 +163,9 @@ class World implements Serializable {
   }
 
   float[] relPos(float x, float y) {
-    return new float[]{x - self.pos.x + app.width/2, y - self.pos.y + app.height/2};
+    return new float[]{
+      x - self.pos.x + app.width/2, 
+      y - self.pos.y + app.height/2
+    };
   }
 }
