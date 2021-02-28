@@ -110,4 +110,34 @@ class World implements Serializable {
       y - self.pos.y + app.height/2
     };
   }
+  
+  
+  byte[] Serialize (Object obj) {
+    try {
+      ByteArrayOutputStream bout = new ByteArrayOutputStream();
+      ObjectOutput oout = new ObjectOutputStream(bout);
+      oout.writeObject(obj);
+      oout.flush();
+      oout.close();
+      return bout.toByteArray();
+    }
+    catch(IOException e) {
+      app.println("failed to start serializing");
+      app.println(e);
+      return new byte[] {};
+    }
+  }
+
+  Object deSerialize(byte[] bytes)
+  {
+    try {
+      ObjectInputStream in = new ObjectInputStream(new ByteArrayInputStream(bytes));
+      return in.readObject();
+    }
+    catch(Exception e) {
+      app.println(e);
+      app.println(1);
+      return e;
+    }
+  }
 }
