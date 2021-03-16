@@ -6,9 +6,9 @@ import java.io.*;
 class World implements Serializable {
   int[] MapSize = {256*8, 256*8};
   ArrayList<int[]> SpawnPoints = new ArrayList<int[]>(3);
-  int MaxHP = 50;
-  float FireRate =(float) 3.0;
-  int BulletDmg = 35;
+  float MaxHP = (float) 50;
+  float FireRate = (float) 3.0;
+  int BulletDmg = 5;
   float BulletSpeed = 10;
   int BulletSize = 5;
   float MovementSpeed = (float) 3.5;
@@ -184,7 +184,7 @@ class World implements Serializable {
     }
   }
 
-  Object deSerialize(byte[] bytes)
+  Object DeSerialize(byte[] bytes)
   {
     try {
       ObjectInputStream in = new ObjectInputStream(new ByteArrayInputStream(bytes));

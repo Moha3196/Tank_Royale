@@ -10,7 +10,7 @@ class Bullet extends Entity  {
     vel = velocity;
     owner = player;
     world = player.world;
-    //size = world.BulletSize;
+    size = world.BulletSize;
     dmg = world.BulletDmg;
   }
 

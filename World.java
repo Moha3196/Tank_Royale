@@ -4,7 +4,7 @@ import java.util.*;
 import java.io.*;
 
 class World implements Serializable {
-  int[] MapSize = {1024*2, 1024*2};
+  int[] MapSize = {256*8, 256*8};
   ArrayList<int[]> SpawnPoints = new ArrayList<int[]>(3);
   float MaxHP = (float) 50;
   float FireRate = (float) 3.0;

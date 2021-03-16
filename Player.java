@@ -8,6 +8,7 @@ import java.io.*;
 class Player extends Entity {
   int Id;
   String DisplayName;
+
   float HP;
   //String CurrentPowerup;
   //int TimeSincePowerupObtained;
