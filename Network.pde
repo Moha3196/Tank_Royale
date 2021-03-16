@@ -25,8 +25,8 @@ class Session {
     nickName = _nickName;
     ServerIP = _IP;
   }
-  
-  void init (){
+
+  void init () {
     println("binding UDP socket");
     udp = new UDP(app, SelfPort, SelfIP);
     connect();
@@ -34,8 +34,8 @@ class Session {
     udp.log(true);
     udp.listen(true);
   }
-  
-  void recive(byte[] data, String ip, int port){
+
+  void recive(byte[] data, String ip, int port) {
     println(data.length);
   }
 
@@ -59,8 +59,8 @@ class Session {
 
   void receiveFirstGD(char packT, byte[] payload) {
     println("joining game...");
-    
-    world = (World) world.DeSerialize(payload);
+
+    world = (World) world.DeSerialize(subset(payload, 1));
     world.bind(app);
   }
 
