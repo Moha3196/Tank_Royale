@@ -8,11 +8,12 @@ import java.io.*;
 class Player extends Entity {
   int Id;
   String DisplayName;
-  int HP;
+
+  float HP;
   //String CurrentPowerup;
   //int TimeSincePowerupObtained;
   int Kills;
-  boolean isSelf;
+  boolean isSelf = false;
   int lastTimeShot;
   //int[] CurrentChunk;
 
@@ -26,6 +27,16 @@ class Player extends Entity {
     size = world.PlayerSize;
     HP = world.MaxHP;
   }
+  
+  Player(PApplet appp, World world_, int[] spawn) {
+    bind(appp);
+    pos.x = spawn[0];
+    pos.y = spawn[1];
+    world = world_;
+    size = world.PlayerSize;
+    HP = world.MaxHP;
+  }
+  
 
   void Render() {
     if (isSelf) {
@@ -41,6 +52,14 @@ class Player extends Entity {
 
     float[] realPos = world.relPos(pos.x, pos.y);
     app.circle(realPos[0], realPos[1], size);
+	//Damaged HP bar
+    app.fill(255, 0, 0);
+    app.rect(realPos[0]-size, realPos[1]-size, size*2, size/4);
+    
+    //Currnet HP bar
+    app.fill(0, 255, 0);
+    app.rect(realPos[0]-size, realPos[1]-size, size*2/world.MaxHP*HP, size/4);
+  
   }
 
   void Shoot() {
@@ -110,7 +129,6 @@ class Player extends Entity {
   void Collide(GameObject g) {
   }
 
-  @Override
     void CheckCollision(Entity e) {
     if (e instanceof Bullet) {
       if (!this.equals(((Bullet)e).owner) ) {
@@ -160,6 +178,6 @@ class Player extends Entity {
       Kill();
       return;
     }
-    HP = amount + HP % world.MaxHP;
+    HP = amount + HP;
   }
 }

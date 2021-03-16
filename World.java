@@ -96,8 +96,6 @@ class World implements Serializable {
     self = (Player)Entities.get(0);
   }
 
-
-
   void bind (PApplet a) {
     app = a;
     g = app.g;

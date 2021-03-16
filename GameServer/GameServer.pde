@@ -9,6 +9,12 @@ void draw() {
 
 void receive( byte[] data, String IP, int port ) {
   server.process(data, IP, port);
+
+}
+
+void mousePressed(){
+  server.StartGame();
+
 }
 
 
@@ -23,6 +29,7 @@ interface PacketType {
 
 enum Status {
     awaitngUsers, 
+    spawned,
     running, 
     terminated  ;
   }
