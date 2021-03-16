@@ -14,7 +14,6 @@ class Client {
   }
   
   void sendFirstGamestate(){
-    println(3);
     world.self = player;
     player.isSelf = true;
     byte[] payload = concat(
