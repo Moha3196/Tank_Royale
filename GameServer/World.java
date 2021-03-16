@@ -4,19 +4,11 @@ import java.util.*;
 import java.io.*;
 
 class World implements Serializable {
-  int[] MapSize = {1024*2, 1024*2};
   ArrayList<int[]> SpawnPoints = new ArrayList<int[]>(3);
   float MaxHP = (float) 50;
   float FireRate = (float) 3.0;
   int BulletDmg = 5;
   float BulletSpeed = 10;
-  int BulletSize = 5;
-  float MovementSpeed = (float) 3.5;
-  int MaxPlayers = 3;
-  int PlayerSize = 30;
-  //boolean CheatsEnabled = true;
-  //String[] EnabledPowurups;
-  int UpdateRate = 30;
   //int Chunksize = 4;
   Player self;
   LinkedList<Entity> Entities = new LinkedList<Entity>();
