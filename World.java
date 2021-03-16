@@ -186,7 +186,7 @@ class World implements Serializable {
     }
   }
 
-  Object deSerialize(byte[] bytes)
+  Object DeSerialize(byte[] bytes)
   {
     try {
       ObjectInputStream in = new ObjectInputStream(new ByteArrayInputStream(bytes));

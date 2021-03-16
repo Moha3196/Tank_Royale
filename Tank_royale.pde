@@ -6,15 +6,15 @@ import java.util.*;
 //Entity ent = new Entity
 long start;
 
-PApplet app = this;
 
-Session session = new Session("ole", "192.168.0.27");
-World world = new World(app);
+Session session = new Session(this);
+World world = new World(this);
 
 void setup() {
-  println();
+  session.config("ole", "192.168.0.20");
+  session.init();
   size(800, 600);
-  frameRate(144);
+  frameRate(60);
 }
 /* 
  * Save the lord
@@ -29,10 +29,26 @@ void draw() {
   world.Run();
   fill(0, 90);
   text("FPS:" + int(1.0/((System.nanoTime()- start)/1000000000.0)), width -56, 15);
-
-  
 }
 
+
+void receive(byte[] data) {
+  println(session.status,12);
+  char PackT = char(data[0]);
+  byte[] payload = subset(data, 1);
+  switch(session.status) {
+    case(Status.connected):
+    println(11);
+    session.receiveFirstGD(PackT, payload);
+
+    break;
+    case(Status.running):
+
+    break;
+  default:
+    return;
+  }
+}
 
 void mousePressed() {
   world.playerInputs[4] = true;

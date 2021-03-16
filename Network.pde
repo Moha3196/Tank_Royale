@@ -1,25 +1,9 @@
 import hypermedia.net.*;
 import java.io.*;
 
-interface Status {
-    char
-      unConnected= '0', 
-      connected  = '1', 
-      running    = '2', 
-      terminated = '3';
-  }
-
-  interface PacketType {
-    char
-      connectionRequest = '0', 
-      firstGameState    = '1', 
-      playerCommand     = '2', 
-      gameState         = '3', 
-      terminate         = '4';
-  }
 
 class Session {  
-
+  PApplet app;
   char status = Status.unConnected;
   String ServerIP;
   int ServerPort = 4206;
@@ -28,59 +12,76 @@ class Session {
   UDP udp;
   String nickName;
 
+  Session(PApplet app) {
+    bind(app);
+  }
 
-  Session(String _nickName, String _IP, int _port) {
+  void config(String _nickName, String _IP, int _port) {
     nickName = _nickName;
     ServerIP = _IP;
     ServerPort = _port;
-    connect();
   }
-  Session(String _nickName, String _IP) {
+  void config(String _nickName, String _IP) {
     nickName = _nickName;
     ServerIP = _IP;
-    connect();
   }
   
+  void init (){
+    println("binding UDP socket");
+    udp = new UDP(app, SelfPort, SelfIP);
+    connect();
+    udp.setReceiveHandler("receive");
+    udp.log(true);
+    udp.listen(true);
+  }
   
-  
+  void recive(byte[] data, String ip, int port){
+    println(data.length);
+  }
+
+
+  void bind(PApplet app_) {
+    app = app_;
+  }
 
   void connect() {
-    println("binding UDP socket");
-    udp = new UDP(this, SelfPort, SelfIP);
     println("sending connectionRequest");
     udp.send(PacketType.connectionRequest + nickName, ServerIP, ServerPort);
     status = Status.connected;
   }
 
-  void receive(byte[] data) {
-    char PType = char(data[0]);
-    switch(status) {
-      case(Status.connected):
-        if(PType == PacketType.firstGameState){
-          receiveFirstGD(data);
-        }
-      break;
-      case(Status.running):
-        
-      break;
-    default:
-      return;
-    }
+  void process() {
   }
-  
-  void loadGamedata(byte[] data, int start, int end){
+
+  void loadGamedata(byte[] data, int start, int end) {
     saveBytes("gamestate.json", data);
-    
   }
-  
-  void receiveFirstGD(byte[] data){
+
+  void receiveFirstGD(char packT, byte[] payload) {
+    println("joining game...");
     
+    world = (World) world.DeSerialize(payload);
+    world.bind(app);
   }
 
   void sendPlayerCMDs() {
   }
-  
-  
-  
-  
+}
+
+
+interface Status {
+  char
+    unConnected= '0', 
+    connected  = '1', 
+    running    = '2', 
+    terminated = '3';
+}
+
+interface PacketType {
+  char
+    connectionRequest = '0', 
+    firstGameState    = '1', 
+    playerCommand     = '2', 
+    gameState         = '3', 
+    terminate         = '4';
 }
