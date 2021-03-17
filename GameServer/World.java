@@ -48,8 +48,7 @@ class World implements Serializable {
     SpawnPoints.add(new int[] {20, 30});
     SpawnPoints.add(new int[] {300, 400});
     SpawnPoints.add(new int[] {600, 30});
-    Entities.add(new Player(app, this, SpawnPoints.get(0), true));
-    Entities.add(new Player(app, this, SpawnPoints.get(1), false));
+    //Entities.add(new Player(app, this, SpawnPoints.get(0), true));
     //Box Top Left corner 
     GameObjects.add(new Wall(app, this, new PVector(462, 2), new PVector(462, 339), 120, 5));
     GameObjects.add(new Wall(app, this, new PVector(3, 395), new PVector(417, 395), 120, 5));
@@ -93,7 +92,7 @@ class World implements Serializable {
     GameObjects.add(new Wall(app, this, new PVector(MapSize[0]/2+64*4, MapSize[1]-64*2), new PVector(MapSize[0]-64*4, MapSize[1]-64*2), 120, 5));
     GameObjects.add(new Wall(app, this, new PVector(MapSize[0]/2+64*2, MapSize[1]/2+64*4), new PVector(MapSize[0]/2+64*2, MapSize[1]-64*4), 120, 5));
 
-    self = (Player)Entities.get(0);
+    //self = (Player)Entities.get(0);
   }
 
   void bind (PApplet a) {

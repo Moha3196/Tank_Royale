@@ -4,7 +4,7 @@ class Client {
   String Nickname;
   Player player;
   World world;
-  
+
   Client(World w, String ip, int p, String nick) {
     IP = ip;
     port = p; 
@@ -12,22 +12,28 @@ class Client {
     Player player; //= new Player();
     world = w;
   }
-  
-  void sendFirstGamestate(){
-    world.self = player;
+
+  void sendFirstGamestate() {
+    //Set player as first entity in Entitylist
     player.isSelf = true;
+    world.Entities.remove(player);
+    world.Entities.addFirst(player);
     byte[] payload = concat(
-        new byte[] {PacketType.firstGameState},
-        world.Serialize(world));
+      new byte[] {PacketType.firstGameState}, 
+      world.Serialize(world));
     server.udp.send(payload, IP, port);
-    println(payload);
-    
+    //println(payload);
+
     player.isSelf = false;
   }
-  
-  void sendGameState(){}
-  
-  void spawn(int[] spawnPoint){
+
+  void sendGameState() {
+  }
+
+  void spawn(int[] spawnPoint) {
     player = new Player(new PApplet(), world, spawnPoint);
+    player.DisplayName = Nickname;
+    println(Nickname, "spawned at", spawnPoint[0], spawnPoint[1]);
+    world.Entities.add(player);
   }
 }

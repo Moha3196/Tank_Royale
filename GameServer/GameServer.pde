@@ -7,14 +7,12 @@ void setup () {
 void draw() {
 }
 
-void receive( byte[] data, String IP, int port ) {
+void  receive( byte[] data, String IP, int port ) {
   server.process(data, IP, port);
-
 }
 
 void mousePressed(){
   server.StartGame();
-
 }
 
 

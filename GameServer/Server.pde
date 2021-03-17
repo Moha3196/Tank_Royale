@@ -31,7 +31,7 @@ class Server {
         
         char packT = (char) data[0];
         byte[] payload = subset(data, 1);
-        println();
+        println(packT, "received");
         
         
         switch(status) {
@@ -65,8 +65,8 @@ class Server {
                 int[] spawn = world.SpawnPoints.get(spawned);
                 clients.get(i).spawn(spawn);
                 spawned += 1;
-                println(clients.get(i).Nickname, " spawned at " + spawn[0] + " " + spawn[1]);
             } 
+            println(spawned, "spawned");
             status = Status.spawned;
         }
     }
