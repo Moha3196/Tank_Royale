@@ -66,7 +66,7 @@ class Server {
                 clients.get(i).spawn(spawn);
                 spawned += 1;
             } 
-            println(spawned, "spawned");
+            println(spawned, "spawned in total");
             status = Status.spawned;
         }
     }
