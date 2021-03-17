@@ -3,8 +3,8 @@ import java.util.*;
 
 // ---------- inputparameters ----------
 
-// offline demo 
-boolean demo = true;
+// offline demo Set to false for online game
+boolean demo = false;
 // your displayname
 String DisplayName = "Player";
 // Ip of the gameserver
@@ -14,21 +14,20 @@ String GameserverIP = "192.168.0.20";
 
 
 long start;
-Session session = new Session(this);
-World world = new World(this, false);
+Session session;
+World world;
 
 
 void setup() {
   if (!demo) {
-    Session session = new Session(this);
-    World world = new World(this);
-    
-    
+    session = new Session(this);
+    world = new World(this);
+
+
     session.config(DisplayName, GameserverIP);
     session.init();
-  }
-  else{
-    World world = new World(this, false);
+  } else {
+    world = new World(this, false);
   }
 
   size(800, 600);
@@ -42,11 +41,16 @@ void setup() {
 
 
 void draw() {
-  start = System.nanoTime();
-  background(254);
-  world.Run();
-  fill(0, 90);
-  text("FPS:" + int(1.0/((System.nanoTime()- start)/1000000000.0)), width -56, 15);
+  if (demo || session.status == Status.running) {
+    start = System.nanoTime();
+    background(254);
+    world.Run();
+    fill(0, 90);
+    text("FPS:" + int(1.0/((System.nanoTime()- start)/1000000000.0)), width -56, 15);
+  }
+  if (session.status == Status.running) {
+    session.sendPlayerCMDs();
+  }
 }
 
 

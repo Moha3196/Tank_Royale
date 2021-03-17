@@ -52,20 +52,19 @@ class Session {
   void process() {
   }
 
-  void loadGamedata(byte[] data, int start, int end) {
-    saveBytes("gamestate.json", data);
-  }
 
   void receiveFirstGD(char packT, byte[] payload) {
     println("joining game...");
-    
-    
     world = (World) world.DeSerialize(payload);
     world.self = (Player) world.Entities.get(0);
     world.bind(app);
+    println("loaded");
   }
+  
+  
 
   void sendPlayerCMDs() {
+    
   }
 }
 
