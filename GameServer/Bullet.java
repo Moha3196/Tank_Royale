@@ -22,7 +22,7 @@ class Bullet extends Entity  {
   }
 
   void Collide(Entity e) {
-    if (e instanceof Player) {
+    if (e instanceof Player && ((Player) e).alive) {
       Kill();
     }
   }
