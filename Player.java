@@ -27,7 +27,7 @@ class Player extends Entity {
     size = world.PlayerSize;
     HP = world.MaxHP;
   }
-  
+
   Player(PApplet appp, World world_, int[] spawn) {
     bind(appp);
     pos.x = spawn[0];
@@ -36,11 +36,11 @@ class Player extends Entity {
     size = world.PlayerSize;
     HP = world.MaxHP;
   }
-  
+
 
   void Render() {
     if (isSelf) {
-      app.fill(0,90);
+      app.fill(0, 90);
       app.text("x: " + pos.x/1 + ", y: " + pos.y + "\nvel x y: " + vel.x + "  " + vel.y, 5, 15);
     }
     app.noStroke();
@@ -52,19 +52,20 @@ class Player extends Entity {
 
     float[] realPos = world.relPos(pos.x, pos.y);
     app.circle(realPos[0], realPos[1], size);
-	//Damaged HP bar
+    //Damaged HP bar
     app.fill(255, 0, 0);
     app.rect(realPos[0]-size, realPos[1]-size, size*2, size/4);
-    
+
     //Currnet HP bar
     app.fill(0, 255, 0);
     app.rect(realPos[0]-size, realPos[1]-size, size*2/world.MaxHP*HP, size/4);
-  
   }
 
   void Shoot() {
-    if (isSelf) {
-      if (world.playerInputs[4] && app.millis()-lastTimeShot > 1.0/world.FireRate*1000) {
+    if (world.playerInputs[4] && isSelf) {
+      app.println(1);
+      app.println(app.millis());
+      if ( app.millis() - lastTimeShot > 1.0/world.FireRate*1000) {
         float[] realPos = world.relPos(pos.x, pos.y);
         float[] diffVector = {realPos[0] - app.mouseX, realPos[1] - app.mouseY};
         PVector bulletVel = new PVector(-diffVector[0], -diffVector[1]).setMag(world.BulletSpeed);
@@ -129,7 +130,7 @@ class Player extends Entity {
   void Collide(GameObject g) {
   }
 
-    void CheckCollision(Entity e) {
+  void CheckCollision(Entity e) {
     if (e instanceof Bullet) {
       if (!this.equals(((Bullet)e).owner) ) {
         if (pos.dist(e.pos) < (e.size + size)/2) {

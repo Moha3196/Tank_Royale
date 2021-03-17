@@ -23,6 +23,7 @@ class Entity implements Serializable{
   void bind (PApplet a) {
     app = a;
     g = app.g;
+    app.println("bound");
   }
 
   void Move() {
