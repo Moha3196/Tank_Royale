@@ -36,7 +36,6 @@ class Session {
   }
 
   void recive(byte[] data, String ip, int port) {
-    println(data.length);
   }
 
 
@@ -59,8 +58,10 @@ class Session {
 
   void receiveFirstGD(char packT, byte[] payload) {
     println("joining game...");
-
-    world = (World) world.DeSerialize(subset(payload, 1));
+    
+    
+    world = (World) world.DeSerialize(payload);
+    world.self = (Player) world.Entities.get(0);
     world.bind(app);
   }
 
