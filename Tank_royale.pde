@@ -1,19 +1,36 @@
-import java.util.LinkedList;
 import java.util.*;
 
 
+// ---------- inputparameters ----------
 
-//Entity ent = new Entity
+// offline demo 
+boolean demo = true;
+// your displayname
+String DisplayName = "Player";
+// Ip of the gameserver
+String GameserverIP = "192.168.0.20";
+
+// ---------- inputparameters ----------
+
+
 long start;
-
-
 Session session = new Session(this);
 World world = new World(this, false);
 
 
 void setup() {
-  session.config("ole", "192.168.0.20");
-  session.init();
+  if (!demo) {
+    Session session = new Session(this);
+    World world = new World(this);
+    
+    
+    session.config(DisplayName, GameserverIP);
+    session.init();
+  }
+  else{
+    World world = new World(this, false);
+  }
+
   size(800, 600);
   frameRate(60);
 }
@@ -34,7 +51,7 @@ void draw() {
 
 
 void receive(byte[] data) {
-  println(session.status,12);
+  println(session.status, 12);
   char PackT = char(data[0]);
   byte[] payload = subset(data, 1);
   switch(session.status) {
