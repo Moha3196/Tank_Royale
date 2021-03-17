@@ -7,7 +7,7 @@ import java.io.*;
 
 class Player extends Entity {
   int Id;
-  String DisplayName = "player";
+  String DisplayName = "Player";
 
   float HP;
   //String CurrentPowerup;
