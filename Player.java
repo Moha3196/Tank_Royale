@@ -7,7 +7,7 @@ import java.io.*;
 
 class Player extends Entity {
   int Id;
-  String DisplayName;
+  String DisplayName = "pepe";
 
   float HP;
   //String CurrentPowerup;
@@ -15,6 +15,7 @@ class Player extends Entity {
   int Kills;
   boolean isSelf = false;
   int lastTimeShot;
+  boolean alive = true;
   //int[] CurrentChunk;
 
 
@@ -39,14 +40,20 @@ class Player extends Entity {
 
 
   void Render() {
+    //Position text up left/right
     if (isSelf) {
       app.fill(0, 90);
       app.text("x: " + pos.x/1 + ", y: " + pos.y + "\nvel x y: " + vel.x + "  " + vel.y, 5, 15);
     }
     app.noStroke();
+    // color pick for type of player
     if (isSelf) {
       app.fill(0, 0, 255);
-    } else {
+    } 
+    else if (!alive) {
+      app.fill(0, 10);
+    }
+    else {
       app.fill(255, 0, 0);
     }
 
@@ -59,6 +66,10 @@ class Player extends Entity {
     //Currnet HP bar
     app.fill(0, 255, 0);
     app.rect(realPos[0]-size, realPos[1]-size, size*2/world.MaxHP*HP, size/4);
+    
+    // DisplayName render
+    app.fill(0, 90);
+    app.text(DisplayName, realPos[0] - DisplayName.length() * (float)3.2, realPos[1] + 25);
   }
 
   void Shoot() {
@@ -174,10 +185,16 @@ class Player extends Entity {
 
 
   void addHP(int amount) {
-    if (HP + amount <= 0) {
-      Kill();
+    HP = amount + HP;
+	// low clamp
+    if (HP <= 0) {
+      alive = false;
+      HP = 0;
       return;
     }
-    HP = amount + HP;
+	// high clamp
+    else if(HP >= world.MaxHP){
+      HP = world.MaxHP;
+    }
   }
 }
