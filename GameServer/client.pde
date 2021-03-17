@@ -16,7 +16,6 @@ class Client {
   void sendFirstGamestate() {
     //Set player as first entity in Entitylist
     player.isSelf = true;
-    world.Entities.remove(player);
     world.Entities.addFirst(player);
     byte[] payload = concat(
       new byte[] {PacketType.firstGameState}, 
