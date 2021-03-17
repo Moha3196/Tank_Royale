@@ -28,17 +28,17 @@ class World implements Serializable {
 
 
 
-  ////Demo
-  //World(PApplet PApp) {
-  //  bind(PApp);
-  //  SpawnPoints.add(new int[] {20, 30});
-  //  SpawnPoints.add(new int[] {300, 400});
-  //  SpawnPoints.add(new int[] {600, 30});
-  //  Entities.add(new Player(app, this, SpawnPoints.get(0), true));
-  //  Entities.add(new Player(app, this, SpawnPoints.get(1), false));
-  //  GameObjects.add(new Wall(app, this, new PVector(333, 20), new PVector(300, 100), 120, 5));
-  //  self = (Player)Entities.get(0);
-  //}
+  //Demo
+  World(PApplet PApp, Boolean b) {
+    bind(PApp);
+    SpawnPoints.add(new int[] {20, 30});
+    SpawnPoints.add(new int[] {300, 400});
+    SpawnPoints.add(new int[] {600, 30});
+    Entities.add(new Player(app, this, SpawnPoints.get(0), true));
+    Entities.add(new Player(app, this, SpawnPoints.get(1), false));
+    GameObjects.add(new Wall(app, this, new PVector(333, 20), new PVector(300, 100), 120, 5));
+    self = (Player)Entities.get(0);
+  }
 
 
 

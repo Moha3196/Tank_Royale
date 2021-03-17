@@ -8,7 +8,7 @@ long start;
 
 
 Session session = new Session(this);
-World world = new World(this);
+World world = new World(this, false);
 
 
 void setup() {
