@@ -48,7 +48,7 @@ void draw() {
     fill(0, 90);
     text("FPS:" + int(1.0/((System.nanoTime()- start)/1000000000.0)), width -56, 15);
   }
-  if (session.status == Status.running) {
+  if (!demo && session.status == Status.running) {
     session.sendPlayerCMDs();
   }
 }

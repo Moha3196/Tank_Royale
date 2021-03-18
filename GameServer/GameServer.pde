@@ -13,6 +13,7 @@ void receive( byte[] data, String IP, int port ) {
 
 void mousePressed(){
   server.StartGame();
+  server.status = Status.running;
 }
 
 

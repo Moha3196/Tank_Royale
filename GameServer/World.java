@@ -130,19 +130,20 @@ class World implements Serializable {
 
 
   void Run() {
-    Render();
+    //Render();
     for (Entity e : Entities) {
-      e.Render();
+      //e.Render();
       e.Move();
       e.CheckCollisions(); 
       e.Update();
     }
 
     for (GameObject g : GameObjects) {
-      g.Render();
+      //g.Render();
       g.CheckCollisions();
     }
     self.Shoot();
+    //self.selfMove();
     cleanEntites();
   }
 

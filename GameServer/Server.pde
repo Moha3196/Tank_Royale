@@ -47,11 +47,15 @@ class Server {
     void processAwaitngUsers(char packT, byte[] payload, String IP, int port) {
         if (packT == PacketType.connectionRequest) {
             clients.add(new  Client(world, IP, port, new String(payload)));
+            println(new String(payload) + " joined.");
         }
-        println(new String(payload) + " joined.");
     }
     
     void processRunning(char packT, byte[] payload, String IP, int port) {
+        if(packT == PacketType.gameState){
+            
+
+        }
     }
     
     void spawnPlayers() {
