@@ -10,7 +10,7 @@ String DisplayName = "Player";
 // Ip of the gameserver
 String GameserverIP = "192.168.0.20";
 
-// ---------- inputparameters ----------
+// --------------------------------------
 
 
 long start;
@@ -41,6 +41,7 @@ void setup() {
 
 
 void draw() {
+  
   if (demo || session.status == Status.running) {
     start = System.nanoTime();
     background(254);
@@ -48,7 +49,7 @@ void draw() {
     fill(0, 90);
     text("FPS:" + int(1.0/((System.nanoTime()- start)/1000000000.0)), width -56, 15);
   }
-  if (session.status == Status.running) {
+  if (!demo && session.status == Status.running) {
     session.sendPlayerCMDs();
   }
 }
@@ -65,7 +66,7 @@ void receive(byte[] data) {
 
     break;
     case(Status.running):
-
+    // load dynamic data...
     break;
   default:
     return;

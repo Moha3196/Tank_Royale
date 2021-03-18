@@ -58,13 +58,20 @@ class Session {
     world = (World) world.DeSerialize(payload);
     world.self = (Player) world.Entities.get(0);
     world.bind(app);
+    status = Status.running;
     println("loaded");
   }
-  
-  
+
+
 
   void sendPlayerCMDs() {
-    
+    byte[] payload = new byte[world.playerInputs.length + 1];
+    for (int i = 1; i < world.playerInputs.length; i++) {
+      payload[i] = world.playerInputs[i] ? (byte) 1: (byte) 0;
+    }
+    payload[0] = PacketType.gameState;
+
+    udp.send(payload, ServerIP, ServerPort);
   }
 }
 
