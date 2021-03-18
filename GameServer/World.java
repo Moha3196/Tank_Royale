@@ -37,6 +37,7 @@ class World implements Serializable {
     Entities.add(new Player(app, this, SpawnPoints.get(0), true));
     Entities.add(new Player(app, this, SpawnPoints.get(1), false));
     GameObjects.add(new Wall(app, this, new PVector(333, 20), new PVector(300, 100), 120, 5));
+    GameObjects.add(new Wall(app, this, new PVector(250, 60), new PVector(300, 100), 120, 15));
     self = (Player)Entities.get(0);
   }
 
@@ -45,7 +46,7 @@ class World implements Serializable {
   //World
   World(PApplet PApp) {
     bind(PApp);
-    SpawnPoints.add(new int[] {20, 30});
+    SpawnPoints.add(new int[] {15, 30});
     SpawnPoints.add(new int[] {300, 400});
     SpawnPoints.add(new int[] {600, 30});
 
@@ -130,6 +131,7 @@ class World implements Serializable {
 
 
   void Run() {
+    //client run
     //Render();
     for (Entity e : Entities) {
       //e.Render();
@@ -142,10 +144,9 @@ class World implements Serializable {
       //g.Render();
       g.CheckCollisions();
     }
-    self.Shoot();
-    //self.selfMove();
     cleanEntites();
   }
+
 
 
   void cleanEntites() {

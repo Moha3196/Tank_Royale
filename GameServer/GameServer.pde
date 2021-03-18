@@ -3,8 +3,10 @@ Server server = new Server(this);
 
 //UDP udp;
 void setup () {
+  frameRate(60);
 }
 void draw() {
+    server.tickGame();
 }
 
 void receive( byte[] data, String IP, int port ) {
@@ -12,8 +14,18 @@ void receive( byte[] data, String IP, int port ) {
 }
 
 void mousePressed(){
-  server.StartGame();
-  server.status = Status.running;
+  switch (server.status){
+    case Status.awaitngUsers:
+      server.StartGame();
+      server.status = Status.running;
+    break;
+
+    case Status.running:
+      for(Client client : server.clients){
+        println("x:", client.player.pos.x, " y:", client.player.pos.y);
+      }
+    break;
+  }
 }
 
 
@@ -26,9 +38,10 @@ interface PacketType {
     terminate         = '4';
 }
 
-enum Status {
-    awaitngUsers, 
-    spawned,
-    running, 
-    terminated  ;
+interface Status {
+  char
+    awaitngUsers = '0', 
+    spawned      = '1', 
+    running      = '2', 
+    terminated   = '3';
   }

@@ -8,7 +8,7 @@ import java.util.*;
 class Server {
     UDP udp;
     PApplet app;
-    Status status;
+    char status;
     ArrayList<Client> clients = new ArrayList<Client>();
     World world;
     
@@ -29,16 +29,17 @@ class Server {
         //  print(char(data[i]));
     // }
         
+        // cut the packet into packetType/payload
         char packT = (char) data[0];
         byte[] payload = subset(data, 1);
-        println(packT, "received");
+        //println(packT, "received");
         
         
         switch(status) {
-            case awaitngUsers:
+            case Status.awaitngUsers:
             processAwaitngUsers(packT, payload, IP, port);
             break;
-            case running:
+            case Status.running:
             processRunning(packT, payload, IP, port);
             break;
         }
@@ -52,8 +53,12 @@ class Server {
     }
     
     void processRunning(char packT, byte[] payload, String IP, int port) {
-        if(packT == PacketType.gameState){
-            
+        if(packT == PacketType.playerCommand){
+            for(Client client : clients){
+                if(client.IP.equals(IP)){
+                    client.loadCMDs(payload);
+                }
+            }
 
         }
     }
@@ -79,11 +84,19 @@ class Server {
         for(Client client : clients){
             client.sendFirstGamestate();
         }
-
     }
     
     void StartGame() {
         spawnPlayers();
         sendFirstGamestates();
+    }
+
+    void tickGame(){
+        if(server.status == Status.running){
+             for(Client client : clients){
+                 client.DoPlayerCMDs();
+             }
+            world.Run();
+        }
     }
 }

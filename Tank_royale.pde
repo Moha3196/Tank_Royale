@@ -39,9 +39,7 @@ void setup() {
  */
 
 
-
 void draw() {
-  
   if (demo || session.status == Status.running) {
     start = System.nanoTime();
     background(254);
@@ -61,7 +59,6 @@ void receive(byte[] data) {
   byte[] payload = subset(data, 1);
   switch(session.status) {
     case(Status.connected):
-    println(11);
     session.receiveFirstGD(PackT, payload);
 
     break;
@@ -104,7 +101,6 @@ void keyPressed() {
     break;
   }
 }
-
 
 
 void keyReleased() {

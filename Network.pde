@@ -8,7 +8,7 @@ class Session {
   String ServerIP;
   int ServerPort = 4206;
   String SelfIP;
-  int SelfPort = 4206;
+  int SelfPort = 6969;
   UDP udp;
   String nickName;
 
@@ -31,7 +31,7 @@ class Session {
     udp = new UDP(app, SelfPort, SelfIP);
     connect();
     udp.setReceiveHandler("receive");
-    udp.log(true);
+    udp.log(false);
     udp.listen(true);
   }
 
@@ -52,7 +52,6 @@ class Session {
   void process() {
   }
 
-
   void receiveFirstGD(char packT, byte[] payload) {
     println("joining game...");
     world = (World) world.DeSerialize(payload);
@@ -62,15 +61,12 @@ class Session {
     println("loaded");
   }
 
-
-
   void sendPlayerCMDs() {
     byte[] payload = new byte[world.playerInputs.length + 1];
     for (int i = 1; i < world.playerInputs.length; i++) {
-      payload[i] = world.playerInputs[i] ? (byte) 1: (byte) 0;
+      payload[i] = world.playerInputs[i-1] ? (byte) 1: (byte) 0;
     }
-    payload[0] = PacketType.gameState;
-
+    payload[0] = PacketType.playerCommand;
     udp.send(payload, ServerIP, ServerPort);
   }
 }

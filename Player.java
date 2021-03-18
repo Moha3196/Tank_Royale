@@ -72,8 +72,8 @@ class Player extends Entity {
     app.text(DisplayName, realPos[0] - DisplayName.length() * (float)3.2, realPos[1] + 25);
   }
 
-  void Shoot() {
-    if (world.playerInputs[4] && isSelf) {
+  void Shoot(boolean[] inputs) {
+    if (inputs[4] && isSelf) {
 
       if ( app.millis() - lastTimeShot > 1.0/world.FireRate*1000) {
         float[] realPos = world.relPos(pos.x, pos.y);
@@ -86,19 +86,18 @@ class Player extends Entity {
     }
   }
 
-  void Move() {
-    if (isSelf) {
-      if (app.keyPressed) {
-        if (world.playerInputs[1]) { 
+  void selfMove(boolean[] inputs){
+    if (app.keyPressed) {
+        if (inputs[1]) { 
           vel.x = -1;
-        } else if (world.playerInputs[3]) { 
+        } else if (inputs[3]) { 
           vel.x =  1;
         } else {
           vel.x = 0;
         }
-        if (world.playerInputs[0]) { 
+        if (inputs[0]) { 
           vel.y = -1;
-        } else if (world.playerInputs[2]) { 
+        } else if (inputs[2]) { 
           vel.y =  1;
         } else {
           vel.y = 0;
@@ -109,7 +108,10 @@ class Player extends Entity {
       }
 
       vel.setMag(world.MovementSpeed);
-    }
+
+  }
+
+  void Move() {
     pos.x += vel.x;
     pos.y += vel.y;
 
