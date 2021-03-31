@@ -131,6 +131,7 @@ class World implements Serializable {
 
 
   void Run() {
+  //client run
     self.selfMove(playerInputs);
     Render();
     for (Entity e : Entities) {

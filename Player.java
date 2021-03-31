@@ -87,7 +87,8 @@ class Player extends Entity {
   }
 
   void selfMove(boolean[] inputs){
-    if (app.keyPressed) {
+        vel.x = 0;
+        vel.y = 0;
         if (inputs[1]) { 
           vel.x = -1;
         } else if (inputs[3]) { 
@@ -102,10 +103,6 @@ class Player extends Entity {
         } else {
           vel.y = 0;
         }
-      } else {
-        vel.x = 0;
-        vel.y = 0;
-      }
 
       vel.setMag(world.MovementSpeed);
 

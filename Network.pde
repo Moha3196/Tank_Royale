@@ -35,7 +35,22 @@ class Session {
     udp.listen(true);
   }
 
-  void recive(byte[] data, String ip, int port) {
+  void receive(byte[] data, String ip, int port) {
+    println(status, 12);
+    char PackT = char(data[0]);
+    byte[] payload = subset(data, 1);
+    switch(status) {
+      case(Status.connected):
+      receiveFirstGD(PackT, payload);
+      break;
+
+      case(Status.running):
+      // load dynamic data...
+
+      break;
+      default:
+    return;
+  }
   }
 
 

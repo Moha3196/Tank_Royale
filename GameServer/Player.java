@@ -103,6 +103,7 @@ class Player extends Entity {
         } else {
           vel.y = 0;
         }
+      vel.setMag(world.MovementSpeed);
       }
 
   void Move() {

@@ -131,7 +131,7 @@ class World implements Serializable {
 
 
   void Run() {
-    //client run
+    //server run
     //Render();
     for (Entity e : Entities) {
       //e.Render();

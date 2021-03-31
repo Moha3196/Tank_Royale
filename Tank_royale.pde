@@ -6,7 +6,7 @@ import java.util.*;
 // offline demo Set to false for online game
 boolean demo = false;
 // your displayname
-String DisplayName = "Player";
+String DisplayName = "player Name";
 // Ip of the gameserver
 String GameserverIP = "192.168.0.20";
 
@@ -19,6 +19,8 @@ World world;
 
 
 void setup() {
+  println("demo? =", demo);
+  //demo = args.length == 0;
   if (!demo) {
     session = new Session(this);
     world = new World(this);
@@ -33,10 +35,6 @@ void setup() {
   size(800, 600);
   frameRate(60);
 }
-/* 
- * Save the lord
- * https://stackoverflow.com/questions/1931466/sending-an-object-over-the-internet
- */
 
 
 void draw() {
@@ -53,21 +51,8 @@ void draw() {
 }
 
 
-void receive(byte[] data) {
-  println(session.status, 12);
-  char PackT = char(data[0]);
-  byte[] payload = subset(data, 1);
-  switch(session.status) {
-    case(Status.connected):
-    session.receiveFirstGD(PackT, payload);
-
-    break;
-    case(Status.running):
-    // load dynamic data...
-    break;
-  default:
-    return;
-  }
+void receive(byte[] data, String ip, int port) {
+  session.receive(data, ip, port);
 }
 
 void mousePressed() {

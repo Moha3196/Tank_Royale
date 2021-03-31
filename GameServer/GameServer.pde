@@ -4,9 +4,10 @@ Server server = new Server(this);
 //UDP udp;
 void setup () {
   frameRate(60);
+  println("Server ready.");
 }
 void draw() {
-    server.tickGame();
+    server.Run();
 }
 
 void receive( byte[] data, String IP, int port ) {
@@ -22,13 +23,12 @@ void mousePressed(){
 
     case Status.running:
       for(Client client : server.clients){
-        println("x:", client.player.pos.x, " y:", client.player.pos.y);
       }
     break;
   }
 }
 
-
+// Using interface, becuase enums suck in java :
 interface PacketType {
   char
     connectionRequest = '0', 

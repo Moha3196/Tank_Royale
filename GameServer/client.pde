@@ -15,7 +15,7 @@ class Client {
   }
 
   void sendFirstGamestate() {
-    //Set player as first entity in Entitylist
+    //Set player as first entity in Entitylist due to object references not working when serialized
     player.isSelf = true;
     world.Entities.remove(player);
     world.Entities.addFirst(player);
