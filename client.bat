@@ -1,5 +1,2 @@
-SET P=%~dp0%
-
-SET P="%P:~0,-1%"
-
+SET P="%~dp0%Tank_royale"
 processing-java --sketch=%P% --force --run
