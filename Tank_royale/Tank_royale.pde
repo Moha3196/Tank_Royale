@@ -4,7 +4,7 @@ import java.util.*;
 // ---------- inputparameters ----------
 
 // offline demo Set to false for online game  -  true/false
-boolean demo = true;
+boolean demo = false;
 // your displayname
 String DisplayName = "player Name";
 // Ip of the gameserver
