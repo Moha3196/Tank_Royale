@@ -3,19 +3,28 @@ import java.io.*;
 
 
 class Session {  
-  PApplet app;
+  // status af server
   char status = Status.unConnected;
+
+// netværk indstillinger
+  // lokale IP af sig selv.
   String ServerIP;
+  // port som bliver send TIL
   int ServerPort = 4206;
-  String SelfIP;
+  // port som bliver send fra
   int SelfPort = 6969;
-  UDP udp;
+  // navn på spiller
   String nickName;
 
+  PApplet app;
+  // udp objekt som bliver brugt til at sende og modtage data. 
+  UDP udp;
+  
   Session(PApplet app) {
     bind(app);
   }
 
+  // indstiller sessions netværkindstillinger 
   void config(String _nickName, String _IP, int _port) {
     nickName = _nickName;
     ServerIP = _IP;
@@ -26,19 +35,24 @@ class Session {
     ServerIP = _IP;
   }
 
-  void init () {
+  // bruger session indstillinger til at connect til server
+  void init() {
     println("binding UDP socket");
-    udp = new UDP(app, SelfPort, SelfIP);
+    udp = new UDP(app, SelfPort);
+    // prøver at tilslutte sig til server
     connect();
+    //setter receive event til void receive i Tank_royale.pde.
     udp.setReceiveHandler("receive");
-    udp.log(false);
     udp.listen(true);
   }
 
+  // denne metode bliver kaldt fra void receive fra Tank_royale.pde og håndterer data baseret på packet type
   void receive(byte[] data, String ip, int port) {
     println(status, 12);
+    // besked bliver splitet i packettype og nyttelast
     char PackT = char(data[0]);
     byte[] payload = subset(data, 1);
+    //bliver processed baseret på session status.
     switch(status) {
       case(Status.connected):
       receiveFirstGD(PackT, payload);
@@ -49,24 +63,22 @@ class Session {
 
       break;
       default:
-    return;
+      return;
+    }
   }
-  }
-
 
   void bind(PApplet app_) {
     app = app_;
   }
 
+  // Sender først connection request
   void connect() {
     println("sending connectionRequest");
     udp.send(PacketType.connectionRequest + nickName, ServerIP, ServerPort);
     status = Status.connected;
   }
 
-  void process() {
-  }
-
+  // metode der bliver brugt til at behandle start gamedata.
   void receiveFirstGD(char packT, byte[] payload) {
     println("joining game...");
     world = (World) world.DeSerialize(payload);
@@ -76,6 +88,7 @@ class Session {
     println("loaded");
   }
 
+  // metode til at sende kommandoer til server 
   void sendPlayerCMDs() {
     byte[] payload = new byte[world.playerInputs.length + 1];
     for (int i = 1; i < world.playerInputs.length; i++) {
@@ -86,13 +99,13 @@ class Session {
   }
 }
 
-
+// forskellige interfaces bliver brugt som enums, da enums ikke er særlig gode i processing.
 interface Status {
   char
-    unConnected= '0', 
-    connected  = '1', 
-    running    = '2', 
-    terminated = '3';
+    unConnected = '0', 
+    connected   = '1', 
+    running     = '2', 
+    terminated  = '3';
 }
 
 interface PacketType {

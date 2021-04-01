@@ -3,8 +3,8 @@ import java.util.*;
 
 // ---------- inputparameters ----------
 
-// offline demo Set to false for online game
-boolean demo = false;
+// offline demo Set to false for online game  -  true/false
+boolean demo = true;
 // your displayname
 String DisplayName = "player Name";
 // Ip of the gameserver
@@ -13,18 +13,17 @@ String GameserverIP = "192.168.0.20";
 // --------------------------------------
 
 
-long start;
+// instans af session som kun bliver brugt hvis det ikke er demo 
 Session session;
+// instans af world - også en singlton
 World world;
 
 
 void setup() {
   println("demo? =", demo);
-  //demo = args.length == 0;
   if (!demo) {
     session = new Session(this);
     world = new World(this);
-
 
     session.config(DisplayName, GameserverIP);
     session.init();
@@ -32,29 +31,31 @@ void setup() {
     world = new World(this, false);
   }
 
-  size(800, 600);
-  frameRate(60);
+  size(1000, 800);
+  frameRate(120);
 }
 
 
 void draw() {
-  if (demo || session.status == Status.running) {
-    start = System.nanoTime();
-    background(254);
-    world.Run();
-    fill(0, 90);
-    text("FPS:" + int(1.0/((System.nanoTime()- start)/1000000000.0)), width -56, 15);
-  }
+  long start = System.nanoTime();
+  // hvis det ikke er demo skal kommandoer sendes til server.
   if (!demo && session.status == Status.running) {
     session.sendPlayerCMDs();
   }
+  if (demo || session.status == Status.running) {
+    background(254);
+    world.Run();
+    fill(0, 90);
+    text("FPS:" + int(1.0/((System.nanoTime() - start)/1000000000.0)), width -56, 15);
+  }
 }
 
-
+// event handler til udp packets til session
 void receive(byte[] data, String ip, int port) {
   session.receive(data, ip, port);
 }
 
+// funktioner til at sætte og unsætte inputs:
 void mousePressed() {
   world.playerInputs[4] = true;
 }
@@ -86,7 +87,6 @@ void keyPressed() {
     break;
   }
 }
-
 
 void keyReleased() {
   switch (keyCode) {

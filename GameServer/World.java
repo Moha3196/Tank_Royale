@@ -4,6 +4,7 @@ import java.util.*;
 import java.io.*;
 
 class World implements Serializable {
+// indstillinger til spilltet
   int[] MapSize = {256*8, 256*8};
   ArrayList<int[]> SpawnPoints = new ArrayList<int[]>(3);
   float MaxHP = (float) 50;
@@ -16,18 +17,25 @@ class World implements Serializable {
   int PlayerSize = 30;
   //boolean CheatsEnabled = true;
   //String[] EnabledPowurups;
-  int UpdateRate = 30;
+  //int UpdateRate = 30;
   //int Chunksize = 4;
+
+// vigtige variable til gameplay:
+  // specificere "self" dvs hvem man kontrollere.
   Player self;
+  // liste med Entities, dvs players & Bulltets
   LinkedList<Entity> Entities = new LinkedList<Entity>();
+  // liste med game objects
   LinkedList<GameObject> GameObjects = new LinkedList<GameObject>();
+  // liste med alle spiller inputs status, format : {W, A, S, D, "LeftMouseButton"}
+  boolean[] playerInputs = new boolean[5];
+
+  // "transient" betyder at dette data ikke skal serialiseres, da det ikke giver mening at sende en kopi af en papplet over internettet 
   transient PApplet app;
   transient PGraphics g; 
 
-  boolean[] playerInputs = new boolean[5];
-
-
-
+  
+  // To forskellige kontrukterer til demo mode og online mode, differentieret via argumenter.
   //Demo
   World(PApplet PApp, Boolean b) {
     bind(PApp);
@@ -40,8 +48,6 @@ class World implements Serializable {
     GameObjects.add(new Wall(app, this, new PVector(250, 60), new PVector(300, 100), 120, 15));
     self = (Player)Entities.get(0);
   }
-
-
 
   //World
   World(PApplet PApp) {
@@ -95,6 +101,8 @@ class World implements Serializable {
 
   }
 
+  
+  // bind funktion der bnder objektet fast til app, for at kunne fx render.
   void bind (PApplet a) {
     app = a;
     g = app.g;
@@ -128,8 +136,6 @@ class World implements Serializable {
     }
   }
 
-
-
   void Run() {
     //server run
     //Render();
@@ -148,7 +154,7 @@ class World implements Serializable {
   }
 
 
-
+  // fjerene alle entities med removenextframe bool
   void cleanEntites() {
     Iterator iter = Entities.iterator();
     Entity e;
@@ -160,6 +166,7 @@ class World implements Serializable {
     }
   }
 
+  // hjælpefunktion til at beregne position på ifht position af spiller/"sig selv"
   float[] relPos(float x, float y) {
     return new float[]{
       x - self.pos.x + app.width/2, 
@@ -167,7 +174,7 @@ class World implements Serializable {
     };
   }
   
-  
+  // hjælpe funktion til at serialize et objekt til en bytearray.
   byte[] Serialize (Object obj) {
     try {
       ByteArrayOutputStream bout = new ByteArrayOutputStream();
@@ -183,7 +190,7 @@ class World implements Serializable {
       return new byte[] {};
     }
   }
-
+  // hjælpe funktion til at deserialize et objekt fra en bytearray til objekt.
   Object DeSerialize(byte[] bytes)
   {
     try {

@@ -4,9 +4,11 @@ import java.util.*;
 import java.lang.Math.*;
 import java.io.*;
 
-
+// primitiv klasse der repræsentere en spiller om det er en selv eller en opponent.
+// alle Render metoder bliver ikke brugt da det er serverside
 class Player extends Entity {
-  int Id;
+  // ID bliver brugt til at håndtere ejerdom serverside, og for at server ved hvem er "self"
+  int ID;
   String DisplayName = "Player";
 
   float HP;
@@ -38,7 +40,7 @@ class Player extends Entity {
     HP = world.MaxHP;
   }
 
-
+  // render funktion til spiller forskellige ting bliver gjort baseret på om det er en selv osv.
   void Render() {
     //Position text up left/right
     if (isSelf) {
@@ -71,7 +73,8 @@ class Player extends Entity {
     app.fill(0, 90);
     app.text(DisplayName, realPos[0] - DisplayName.length() * (float)3.2, realPos[1] + 25);
   }
-
+  
+  // skydefunktion basseret på input.
   void Shoot(boolean[] inputs) {
     if (inputs[4] && isSelf) {
 
@@ -86,6 +89,7 @@ class Player extends Entity {
     }
   }
 
+  // sætter vel baseret på inputs.
   void selfMove(boolean[] inputs){
         vel.x = 0;
         vel.y = 0;
@@ -103,11 +107,13 @@ class Player extends Entity {
         } else {
           vel.y = 0;
         }
-
+      // sætter hastigheds magnitude til at være hvad serveren har sat.
       vel.setMag(world.MovementSpeed);
+      }
 
-  }
-
+  // collision med world bliver håndteret her da det er nemmere.
+  // ++ nemmere at implimentere
+  // -- det er ikke særlig godt skrevet fra oop perspektiv.
   void Move() {
     pos.x += vel.x;
     pos.y += vel.y;
@@ -127,16 +133,11 @@ class Player extends Entity {
     }
   }
 
+  // spiller skal tage skade hvis bliver ramt
   void Collide(Entity e) {
     if (e instanceof Bullet) {
       addHP(-((Bullet)e).dmg);
     }
-  }
-
-  void Collide(World w) {
-  }
-
-  void Collide(GameObject g) {
   }
 
   void CheckCollision(Entity e) {
@@ -150,8 +151,6 @@ class Player extends Entity {
     }
   }
 
-  void CheckCollision(GameObject g) {
-  }
 
   void CheckCollision(World w) {
     if (pos.x - size < 0 || pos.x + size > w.MapSize[0]) {
@@ -181,8 +180,7 @@ class Player extends Entity {
     }
   }
 
-
-
+  // funktion til at heale/damage player. - for damage.
   void addHP(int amount) {
     HP = amount + HP;
 	// low clamp

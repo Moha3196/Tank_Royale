@@ -10,9 +10,9 @@ class Server {
     World world;
     
     
-    Server(PApplet a) {
+    Server(PApplet a, String IP, int PORT) {
         app = a;
-        udp = new UDP(app, 4206, "192.168.0.20");
+        udp = new UDP(app, PORT, IP);
         udp.listen(true);
         //udp.log(true);
         status = Status.awaitngUsers;
@@ -28,7 +28,6 @@ class Server {
         // cut the packet into packetType/payload
         char packT = (char) data[0];
         byte[] payload = subset(data, 1);
-        //println(packT, "received");
         
         
         switch(status) {
@@ -52,6 +51,7 @@ class Server {
             println(new String(payload) + " joined.");
         }
     }
+
     // process packet when in running state
     void processRunning(char packT, byte[] payload, String IP, int port) {
         if(packT == PacketType.playerCommand){
@@ -63,7 +63,7 @@ class Server {
         }
     }
     
-    // adds player into entitylist
+    // Wrapper til spawning af alle clienters spiller
     void spawnPlayers() {
         if (status != Status.spawned) {
             int spawned = 0;
@@ -80,24 +80,26 @@ class Server {
         }
     }
     
+    // metode til at sende første spil data.
     void sendFirstGamestates(){
         for(Client client : clients){
             client.sendFirstGamestate();
         }
     }
     
+    // wrapepr til at gøre alt hvad der skal til for at starte spil.
     void StartGame() {
         spawnPlayers();
         sendFirstGamestates();
     }
 
-    //Does all things required to run the server.
+    //Gør alle de ting der skal til for at kører server.
     void Run(){
         tickGame();
         prepData();
     }
 
-    // moves game 1 step forward.
+    // bevæger spillet 1 step fremad.
     void tickGame(){
         if(server.status == Status.running){
              for(Client client : clients){
@@ -107,7 +109,8 @@ class Server {
         }
     }
 
-    // Preps data before being sent, object refrences dont work, when sent over the net.
+    // Preps data before being sent.
+    // to fix : object refrences dont work, when sent over the net.
     void prepData(){
 
     }

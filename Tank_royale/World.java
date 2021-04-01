@@ -16,15 +16,15 @@ class World implements Serializable {
   int PlayerSize = 30;
   //boolean CheatsEnabled = true;
   //String[] EnabledPowurups;
-  int UpdateRate = 30;
+  //int UpdateRate = 30;
   //int Chunksize = 4;
   Player self;
   LinkedList<Entity> Entities = new LinkedList<Entity>();
   LinkedList<GameObject> GameObjects = new LinkedList<GameObject>();
+  boolean[] playerInputs = new boolean[5];
   transient PApplet app;
   transient PGraphics g; 
 
-  boolean[] playerInputs = new boolean[5];
 
 
 
@@ -46,7 +46,7 @@ class World implements Serializable {
   //World
   World(PApplet PApp) {
     bind(PApp);
-    SpawnPoints.add(new int[] {20, 30});
+    SpawnPoints.add(new int[] {15, 30});
     SpawnPoints.add(new int[] {300, 400});
     SpawnPoints.add(new int[] {600, 30});
 
@@ -111,11 +111,12 @@ class World implements Serializable {
     float[] rightCorner = relPos(MapSize[0], MapSize[1]);
     app.noFill();
     app.stroke(5);
+    app.strokeWeight(5);
     app.rect(leftCorner[0], leftCorner[1], rightCorner[0] - leftCorner[0], rightCorner[1] - leftCorner[1]);
-
+    
+    app.strokeWeight(1);
     app.fill(200);
     app.stroke(30,30);
-    app.strokeWeight(1);
     for (int x = 0; x < MapSize[0]; x += 64 ) {
       float[] relPos1 = relPos(x, 0);
       float[] relPos2 = relPos(x, MapSize[1]);

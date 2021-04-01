@@ -1,19 +1,25 @@
-Server server = new Server(this);
+// egen lokale ip
+String SelfIP = "192.168.0.20";
+// port til server.
+int SelfPort = 4206;
 
+// en instans af server bliver skabt.
+Server server = new Server(this, SelfIP, SelfPort);
 
-//UDP udp;
 void setup () {
-  frameRate(60);
+  frameRate(120);
   println("Server ready.");
 }
 void draw() {
     server.Run();
 }
 
+// Event der bliver kaldt når der bliver modtaget en pakke
 void receive( byte[] data, String IP, int port ) {
   server.process(data, IP, port);
 }
 
+// mousePressed bliver brugt som en knap til at bringe status af server fremad.
 void mousePressed(){
   switch (server.status){
     case Status.awaitngUsers:
@@ -28,7 +34,8 @@ void mousePressed(){
   }
 }
 
-// Using interface, becuase enums suck in java :
+// Using interface, becuase enums suck in java:
+// Packet type - alle packets har forskellige typer for at håndtere dem forskelligt. 
 interface PacketType {
   char
     connectionRequest = '0', 
@@ -37,7 +44,7 @@ interface PacketType {
     gameState         = '3', 
     terminate         = '4';
 }
-
+// serverstatus
 interface Status {
   char
     awaitngUsers = '0', 
