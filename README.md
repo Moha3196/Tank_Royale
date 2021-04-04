@@ -27,5 +27,5 @@ only works if u have processing in PATH duh _
 
 
 Links:  
-[this](https://github.com/olekkr/Tank_royale/edit/main/README.md)  
+[this](https://github.com/olekkr/Tank_royale)  
 [testcode](https://github.com/olekkr/nettest)  
