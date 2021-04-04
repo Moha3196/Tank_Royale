@@ -22,5 +22,10 @@ if u want to demo the game without server you can set demo to true instead of fa
 
 
 
-_tip: For Windows use RunClient.bat and RunServer.bat for ease of use!_
+_tip: For Windows use RunClient.bat and RunServer.bat for ease of use!  
+only works if u have processing in PATH duh _
 
+
+Links:  
+[this](https://github.com/olekkr/Tank_royale/edit/main/README.md)  
+[testcode](https://github.com/olekkr/nettest)  
