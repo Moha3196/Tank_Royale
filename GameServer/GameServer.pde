@@ -11,6 +11,7 @@ Server server = new Server(this, SelfIP, SelfPort);
 void setup () {
   frameRate(120);
   println("Server ready.");
+  // debug player
   server.clients.add(new Client(server.world, "192.168.0.13", 9929, "TEST"));
 }
 void draw() {
