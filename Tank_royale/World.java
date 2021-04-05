@@ -7,7 +7,7 @@ class World implements Serializable {
   int[] MapSize = {256*8, 256*8};
   ArrayList<int[]> SpawnPoints = new ArrayList<int[]>(3);
   float MaxHP = (float) 50;
-  float FireRate = (float) 3.0;
+  float FireRate = (float) 15.0;
   int BulletDmg = 5;
   float BulletSpeed = 10;
   int BulletSize = 5;
@@ -38,6 +38,7 @@ class World implements Serializable {
     Entities.add(new Player(app, this, SpawnPoints.get(1), false));
     GameObjects.add(new Wall(app, this, new PVector(333, 20), new PVector(300, 100), 120, 5));
     GameObjects.add(new Wall(app, this, new PVector(250, 60), new PVector(300, 100), 120, 15));
+    GameObjects.add(new Wall(app, this, new PVector(200, 200), new PVector(200, 600), 120, 5));
     self = (Player)Entities.get(0);
   }
 
