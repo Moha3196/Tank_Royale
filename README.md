@@ -24,7 +24,7 @@ if you want to host a server you have to find local ip
 * windows: in commandprompt write >`ipconfig` get the IPv4 Address.
 * mac/linux: in terminal write >`ifconfig | grep "inet " | grep -v 127.0.0.1` get the inet.
 
-put this addres into here into network.pde into selfIP.
+put this addres into here into server.pde into selfIP.
 
     // ------- inpout parameters -------
     // egen lokale ip
@@ -32,11 +32,11 @@ put this addres into here into network.pde into selfIP.
     // port til server.
     int SelfPort = 4206;
     // ---------------------------------
-
+Once all players have joined click on the windows that server created to start the game.
 
 
 ### Demo
-In Tank_royale.pde you will find
+In Tank_royale.pde you will find and you have to change demo bool to true. 
 
     // ---------- inputparameters ----------
     // offline demo Set to false for online game  -  true/false
@@ -46,7 +46,7 @@ In Tank_royale.pde you will find
     // Ip of the gameserver
     String GameserverIP = "192.168.0.20";
     // --------------------------------------
-Change demo bool to true. 
+
 
 
 
