@@ -1,7 +1,9 @@
+// ------- inpout parameters -------
 // egen lokale ip
 String SelfIP = "192.168.0.20";
 // port til server.
 int SelfPort = 4206;
+// ---------------------------------
 
 // en instans af server bliver skabt.
 Server server = new Server(this, SelfIP, SelfPort);
