@@ -35,8 +35,18 @@ put this addres into here into network.pde into selfIP.
 
 
 
+### Demo
+In Tank_royale.pde you will find
 
-if u want to demo the game without server you can set demo to true instead of false.
+    // ---------- inputparameters ----------
+    // offline demo Set to false for online game  -  true/false
+    boolean demo = false;
+    // your displayname
+    String DisplayName = "your player name";
+    // Ip of the gameserver
+    String GameserverIP = "192.168.0.20";
+    // --------------------------------------
+Change demo bool to true. 
 
 
 
