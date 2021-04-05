@@ -6,6 +6,7 @@ Batte royale but for tanks
 ## How to:
 ### Client
 In Tank_royale.pde you will find
+
     // ---------- inputparameters ----------
     // offline demo Set to false for online game  -  true/false
     boolean demo = false;
@@ -24,12 +25,13 @@ if you want to host a server you have to find local ip
 * mac/linux: in terminal write >`ifconfig | grep "inet " | grep -v 127.0.0.1` get the inet.
 
 put this addres into here into network.pde into selfIP.
-// ------- inpout parameters -------
-// egen lokale ip
-String SelfIP = "192.168.0.20";
-// port til server.
-int SelfPort = 4206;
-// ---------------------------------
+
+    // ------- inpout parameters -------
+    // egen lokale ip
+    String SelfIP = "192.168.0.20";
+    // port til server.
+    int SelfPort = 4206;
+    // ---------------------------------
 
 
 
