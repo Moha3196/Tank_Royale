@@ -4,9 +4,8 @@ Batte royale but for tanks
 
 
 ## How to:
-In Tank_royale.pde you will find
-
 ### Client
+In Tank_royale.pde you will find
     // ---------- inputparameters ----------
     // offline demo Set to false for online game  -  true/false
     boolean demo = false;
