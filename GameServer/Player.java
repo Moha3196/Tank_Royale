@@ -7,7 +7,7 @@ import java.io.*;
 // primitiv klasse der repræsentere en spiller om det er en selv eller en opponent.
 // alle Render metoder bliver ikke brugt da det er serverside
 class Player extends Entity {
-  // ID bliver brugt til at håndtere ejerdom serverside, og for at server ved hvem er "self"
+  // ID bliver brugt til at håndtere ejerdom, og for at server ved hvem er "self"
   int ID;
   String DisplayName = "Player";
 

@@ -29,7 +29,6 @@ class Server {
         char packT = (char) data[0];
         byte[] payload = subset(data, 1);
         
-        
         switch(status) {
             case Status.awaitngUsers:
             processAwaitngUsers(packT, payload, IP, port);
@@ -47,7 +46,7 @@ class Server {
     // process packet when in "awaiting users" state 
     void processAwaitngUsers(char packT, byte[] payload, String IP, int port) {
         if (packT == PacketType.connectionRequest) {
-            clients.add(new  Client(world, IP, port, new String(payload)));
+            clients.add(new  Client(world, IP, port, new String(payload), clients.size()));
             println(new String(payload) + " joined.");
         }
     }

@@ -15,6 +15,7 @@ class Session {
   int SelfPort = 6969;
   // navn på spiller
   String nickName;
+  int ID;
 
   PApplet app;
   // udp objekt som bliver brugt til at sende og modtage data. 
@@ -80,12 +81,15 @@ class Session {
 
   // metode der bliver brugt til at behandle start gamedata.
   void receiveFirstGD(char packT, byte[] payload) {
-    println("joining game...");
-    world = (World) world.DeSerialize(payload);
-    world.self = (Player) world.Entities.get(0);
-    world.bind(app);
-    status = Status.running;
-    println("loaded");
+    if(packT == PacketType.firstGameState){
+      println("joining game...");
+      world = (World) world.DeSerialize(payload);
+      world.self = (Player) world.Entities.get(0);
+      world.bind(app);
+      status = Status.running;
+      ID = world.self.ID;
+      println("loaded");
+    }
   }
 
   // metode til at sende kommandoer til server 

@@ -31,7 +31,7 @@ void mousePressed(){
     case Status.running:
       // debug code.
       for(Client c : server.clients){
-        println(c.player.pos.x);
+        println(c.player.ID, c.player.pos);
       }
     break;
   }

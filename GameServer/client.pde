@@ -6,20 +6,22 @@ class Client {
   Player player;
   World world;
   boolean[] commands = new boolean[5];
-
+  int ID;
   // constructor. Konstruktion tager kun udgangspunkt i netværk detalier - har ikke repræsentering af spiller.
-  Client(World w, String ip, int p, String nick) {
+  Client(World w, String ip, int p, String nick, int id) {
     IP = ip;
     port = p; 
     Nickname = nick;
     Player player;
     world = w;
+    ID = id;
   }
 
   // giver client klassen en reprsæntation af "player" klassen.
   void spawn(int[] spawnPoint) {
     player = new Player(new PApplet(), world, spawnPoint);
     player.DisplayName = Nickname;
+    player.ID = ID;
     println(Nickname, "spawned at", spawnPoint[0], spawnPoint[1]);
     world.Entities.add(player);
   }
