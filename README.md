@@ -24,7 +24,7 @@ if you want to host a server you have to find local ip
 * windows: in commandprompt write >`ipconfig` get the IPv4 Address.
 * mac/linux: in terminal write >`ifconfig | grep "inet " | grep -v 127.0.0.1` get the inet.
 
-put this addres into here into network.pde into selfIP.
+put this addres into here into server.pde into selfIP.
 
     // ------- inpout parameters -------
     // egen lokale ip
