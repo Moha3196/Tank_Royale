@@ -49,7 +49,6 @@ class Session {
 
   // denne metode bliver kaldt fra void receive fra Tank_royale.pde og håndterer data baseret på packet type
   void receive(byte[] data, String ip, int port) {
-    println(status, 12);
     // besked bliver splitet i packettype og nyttelast
     char PackT = char(data[0]);
     byte[] payload = subset(data, 1);
@@ -104,6 +103,7 @@ class Session {
   void receiveNewGS(char packT, byte[] payload){
   if(packT == PacketType.gameState){
     world.Entities = (LinkedList<Entity>)world.DeSerialize(payload);
+    
     // find yourself based on ID, replace dynamic data
     // set self up
     for(Entity e : world.Entities){
