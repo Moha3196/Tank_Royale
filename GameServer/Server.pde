@@ -96,7 +96,7 @@ class Server {
     //Gør alle de ting der skal til for at kører server.
     void Run(){
         tickGame();
-        prepData();
+        sendGameStates();
     }
 
     // bevæger spillet 1 step fremad.
@@ -109,10 +109,10 @@ class Server {
         }
     }
 
-    // Preps data before being sent.
-    // to fix : object refrences dont work, when sent over the net.
-    void prepData(){
-
+    void sendGameStates(){
+        for (Client c : clients){
+            c.sendGameState();
+        }
     }
 
 }

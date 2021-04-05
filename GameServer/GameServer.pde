@@ -13,7 +13,9 @@ void setup () {
   println("Server ready.");
 }
 void draw() {
+  if(server.status == Status.running){
     server.Run();
+  }
 }
 
 // Event der bliver kaldt når der bliver modtaget en pakke

@@ -60,9 +60,9 @@ class Session {
       break;
 
       case(Status.running):
-      // load dynamic data...
-
+        receiveNewGS(PackT, payload);
       break;
+
       default:
       return;
     }
@@ -101,8 +101,27 @@ class Session {
     payload[0] = PacketType.playerCommand;
     udp.send(payload, ServerIP, ServerPort);
   }
+  void receiveNewGS(char packT, byte[] payload){
+  if(packT == PacketType.gameState){
+    world.Entities = (LinkedList<Entity>)world.DeSerialize(payload);
+    // find yourself based on ID, replace dynamic data
+    // set self up
+    for(Entity e : world.Entities){
+      e.world = world;
+      e.bind(app);
+    }
+
+    for(Entity e : world.Entities){
+      if(e instanceof Player && ID == ((Player)e).ID){
+        Player p = ((Player) e);
+        p.isSelf = true;
+        world.self = p;
+      }
+    }
+  }
 }
 
+}
 // forskellige interfaces bliver brugt som enums, da enums ikke er særlig gode i processing.
 interface Status {
   char

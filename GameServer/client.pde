@@ -58,6 +58,12 @@ class Client {
 
   // sender clienten alt dynamisk data, dvs alle de ting den kan ændre.
   void sendGameState() {
+    // klargører payload til at blive sendt over net
+    byte[] payload = concat(
+      new byte[] {PacketType.gameState}, 
+      world.Serialize(world.Entities));
+    // send
+    server.udp.send(payload, IP, port);
   }
 
   
