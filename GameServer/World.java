@@ -46,6 +46,7 @@ class World implements Serializable {
     Entities.add(new Player(app, this, SpawnPoints.get(1), false));
     GameObjects.add(new Wall(app, this, new PVector(333, 20), new PVector(300, 100), 120, 5));
     GameObjects.add(new Wall(app, this, new PVector(250, 60), new PVector(300, 100), 120, 15));
+    GameObjects.add(new Wall(app, this, new PVector(200, 200), new PVector(200, 600), 120, 5));
     self = (Player)Entities.get(0);
   }
 
@@ -119,8 +120,10 @@ class World implements Serializable {
     float[] rightCorner = relPos(MapSize[0], MapSize[1]);
     app.noFill();
     app.stroke(5);
+    app.strokeWeight(5);
     app.rect(leftCorner[0], leftCorner[1], rightCorner[0] - leftCorner[0], rightCorner[1] - leftCorner[1]);
-
+    
+    app.strokeWeight(1);
     app.fill(200);
     app.stroke(30,30);
     app.strokeWeight(1);

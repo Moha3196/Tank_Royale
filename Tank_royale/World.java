@@ -181,6 +181,7 @@ class World implements Serializable {
       return bout.toByteArray();
     }
     catch(IOException e) {
+      app.println("failed to start serializing");
       app.println(e);
       return new byte[] {};
     }

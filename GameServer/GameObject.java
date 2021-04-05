@@ -3,12 +3,12 @@ import processing.core.*;
 import java.lang.Math.*;
 import java.io.*;
 
-// Gameobject klasse som repræsentere de statiske ting i spillet, dvs murer osv. Er Serializable, er primitiv, dvs vil adrig blive brugt, kun nedarvnenger bliver brugt.
+// Gameobject klasse som repræsentere de statiske ting i spillet murer osv... Er Serializable, er primitiv
 class GameObject implements Serializable{
   PVector pos = new PVector();
   World world;
 
-  // "transient" betyder at dette data ikke skal serialiseres, da det ikke giver mening at sende en kopi af en papplet over internettet 
+  // "transient" betyder at dette data ikke skal serialiseres
   transient PApplet app;
   transient PGraphics g;   
 
@@ -19,17 +19,13 @@ void bind (PApplet a) {
   }
 
   // tomme metoder for polymorfisme:
-  void Render() {
-  }
+  void Render() {}
 
-  void Collide() {
-  }
+  void Collide() {}
 
-  void Collide(Entity e) {
-  }
+  void Collide(Entity e) {}
 
-  void CheckCollisions() {
-  }
+  void CheckCollisions() {}
 }
 
 // Nedarvning af GameObject - en væg i spillet, ting skal kunne kollidere med denne.
