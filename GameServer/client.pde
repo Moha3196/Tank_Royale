@@ -23,7 +23,7 @@ class Client {
     println(Nickname, "spawned at", spawnPoint[0], spawnPoint[1]);
     world.Entities.add(player);
   }
-
+  
   // metode til at sende første gamestate til spilleren.
   void sendFirstGamestate() {
     player.isSelf = true;

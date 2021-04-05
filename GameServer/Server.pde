@@ -91,6 +91,7 @@ class Server {
     void StartGame() {
         spawnPlayers();
         sendFirstGamestates();
+        status = Status.running;
     }
 
     //Gør alle de ting der skal til for at kører server.

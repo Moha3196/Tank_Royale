@@ -9,6 +9,7 @@ Server server = new Server(this, SelfIP, SelfPort);
 void setup () {
   frameRate(120);
   println("Server ready.");
+  server.clients.add(new Client(server.world, "192.168.0.13", 9929, "TEST"));
 }
 void draw() {
     server.Run();
@@ -24,11 +25,12 @@ void mousePressed(){
   switch (server.status){
     case Status.awaitngUsers:
       server.StartGame();
-      server.status = Status.running;
     break;
 
     case Status.running:
-      for(Client client : server.clients){
+      // debug code.
+      for(Client c : server.clients){
+        println(c.player.pos.x);
       }
     break;
   }

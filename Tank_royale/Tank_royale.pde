@@ -6,10 +6,9 @@ import java.util.*;
 // offline demo Set to false for online game  -  true/false
 boolean demo = false;
 // your displayname
-String DisplayName = "player Name";
+String DisplayName = "test";
 // Ip of the gameserver
 String GameserverIP = "192.168.0.20";
-
 // --------------------------------------
 
 
@@ -23,7 +22,7 @@ void setup() {
   println("demo? =", demo);
   if (!demo) {
     session = new Session(this);
-    world = new World(this);
+    world = new World(this,true);
 
     session.config(DisplayName, GameserverIP);
     session.init();
@@ -31,7 +30,7 @@ void setup() {
     world = new World(this, false);
   }
 
-  size(1000, 800);
+  size(1280, 720);
   frameRate(120);
 }
 

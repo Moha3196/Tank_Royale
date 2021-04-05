@@ -28,9 +28,6 @@ void bind (PApplet a) {
   void Collide(Entity e) {
   }
 
-  void Collide(World w) {
-  }
-
   void CheckCollisions() {
   }
 }

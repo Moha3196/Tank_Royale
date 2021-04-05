@@ -7,9 +7,9 @@ class World implements Serializable {
 // indstillinger til spilltet
   int[] MapSize = {256*8, 256*8};
   ArrayList<int[]> SpawnPoints = new ArrayList<int[]>(3);
-  float MaxHP = (float) 50;
+  float MaxHP = (float) 100;
   float FireRate = (float) 3.0;
-  int BulletDmg = 5;
+  int BulletDmg = 30;
   float BulletSpeed = 10;
   int BulletSize = 5;
   float MovementSpeed = (float) 3.5;
@@ -26,7 +26,7 @@ class World implements Serializable {
   // liste med Entities, dvs players & Bulltets
   LinkedList<Entity> Entities = new LinkedList<Entity>();
   // liste med game objects
-  LinkedList<GameObject> GameObjects = new LinkedList<GameObject>();
+  ArrayList<GameObject> GameObjects = new ArrayList<GameObject>();
   // liste med alle spiller inputs status, format : {W, A, S, D, "LeftMouseButton"}
   boolean[] playerInputs = new boolean[5];
 

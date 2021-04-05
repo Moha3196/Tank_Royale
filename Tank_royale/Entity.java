@@ -1,14 +1,16 @@
 import processing.core.*;
 import java.io.*;
 
-// Entity klasse som repæsentere dynamiske ting i spillet, er funktionelt en "primitiv klasse" og er Serializable 
+// Entity klasse som repæsentere dynamiske ting i spillet, 
+// er funktionelt en "primitiv klasse" og er Serializable 
 class Entity implements Serializable{
   PVector pos = new PVector(); 
   PVector vel = new PVector();
   boolean clearNextFrame = false;
   int size;
   
-  // "transient" betyder at dette data ikke skal serialiseres, da det ikke giver mening at sende en kopi af en papplet over internettet 
+  // "transient" betyder at dette data ikke skal serialiseres, 
+  // da det ikke giver mening at sende en kopi af en papplet over internettet 
   transient PApplet app;
   transient PGraphics g; 
 
@@ -24,39 +26,26 @@ class Entity implements Serializable{
   }
 
   // generel move funktion der bliver brugt af alle Entities.
-  void Move() {
-    pos.x += vel.x;
-    pos.y += vel.y;
-  }
+  void Move() { pos.add(vel); }
 
   // metoder der bliver overskrevet i nedarvede klasser:
-  void Collide(World w) {
-  }
+  void Collide(World w) {}
 
-  void Collide(Entity e) {
-  }
+  void Collide(Entity e) {}
 
-  void Collide(GameObject g) {
-  }
+  void Collide(GameObject g) {}
 
-  void CheckCollision(World w) {
-  }
+  void CheckCollision(World w) {}
 
-  void CheckCollision(Entity e) {
-  }
+  void CheckCollision(Entity e) {}
   
-  void CheckCollision(GameObject g) {
-  }
+  void CheckCollision(GameObject g) {}
 
-  void CheckCollisions() {
-  }
+  void CheckCollisions() {}
 
   // pladsholder metode hvis en Entity skal gøre noget hver frame.
-  void Update() {
-  }
+  void Update() {  }
 
   // genrel metode til at dræbe Entity.
-  void Kill() {
-    clearNextFrame = true;
-  }
+  void Kill() { clearNextFrame = true; }
 }

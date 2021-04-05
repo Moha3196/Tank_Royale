@@ -20,7 +20,7 @@ class World implements Serializable {
   //int Chunksize = 4;
   Player self;
   LinkedList<Entity> Entities = new LinkedList<Entity>();
-  LinkedList<GameObject> GameObjects = new LinkedList<GameObject>();
+  ArrayList<GameObject> GameObjects = new ArrayList<GameObject>();
   boolean[] playerInputs = new boolean[5];
   transient PApplet app;
   transient PGraphics g; 
@@ -180,7 +180,6 @@ class World implements Serializable {
       return bout.toByteArray();
     }
     catch(IOException e) {
-      app.println("failed to start serializing");
       app.println(e);
       return new byte[] {};
     }
