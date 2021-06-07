@@ -5,7 +5,7 @@ class Client {
   String Nickname;
   Player player;
   World world;
-  boolean[] commands = new boolean[5];
+  PlayerInput commands = new PlayerInput();
   int ID;
   // constructor. Konstruktion tager kun udgangspunkt i netværk detalier - har ikke repræsentering af spiller.
   Client(World w, String ip, int p, String nick, int id) {
@@ -44,10 +44,7 @@ class Client {
 
   // hjælpemetode til at kunne lave et payload af kommandoer til boolean array.
   void loadCMDs(byte[] bs){
-    // for hvert byte i payload er det true/false baseret på hvilken byte det er.
-    for(int i = 0; i < commands.length; i++){
-      commands[i] = bs[i] == (byte) 0 ? false : true; 
-    }
+    commands = (PlayerInput) world.DeSerialize(bs);
   }
 
   // metode som vil gører alle player ting i spillet. dvs ud fra input skyde og bevæge sig.

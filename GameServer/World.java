@@ -3,6 +3,32 @@ import processing.core.*;
 import java.util.*;
 import java.io.*;
 
+
+class PlayerInput implements Serializable{
+    boolean moveNorth = false;
+    boolean moveWest = false;
+    boolean moveSouth = false;
+    boolean moveEast = false;
+    
+    boolean shoot = false;
+    
+    int[] aimPos = new int[2]; 
+    
+    transient PApplet app;
+    transient PGraphics g; 
+    
+    void bind(PApplet a) {
+        app = a;
+        g = app.g;
+    }
+    
+    void setAimPos (){
+      aimPos[0] = app.mouseX;
+      aimPos[1] = app.mouseY;
+    }
+}
+
+
 class World implements Serializable {
 // indstillinger til spilltet
   int[] MapSize = {256*8, 256*8};
@@ -19,6 +45,8 @@ class World implements Serializable {
   //String[] EnabledPowurups;
   //int UpdateRate = 30;
   //int Chunksize = 4;
+  
+  int[] StdWindowSize = {1280, 720}; 
 
 // vigtige variable til gameplay:
   // specificere "self" dvs hvem man kontrollere.
@@ -28,7 +56,7 @@ class World implements Serializable {
   // liste med game objects
   ArrayList<GameObject> GameObjects = new ArrayList<GameObject>();
   // liste med alle spiller inputs status, format : {W, A, S, D, "LeftMouseButton"}
-  boolean[] playerInputs = new boolean[5];
+  //boolean[] playerInputs = new boolean[5]; // removed as of 07-05 in favor of playerInput class
 
   // "transient" betyder at dette data ikke skal serialiseres, da det ikke giver mening at sende en kopi af en papplet over internettet 
   transient PApplet app;
@@ -127,31 +155,34 @@ class World implements Serializable {
     app.fill(200);
     app.stroke(30,30);
     app.strokeWeight(1);
-    for (int x = 0; x < MapSize[0]; x += 64 ) {
-      float[] relPos1 = relPos(x, 0);
-      float[] relPos2 = relPos(x, MapSize[1]);
-      app.line(relPos1[0], relPos1[1], relPos2[0], relPos2[1]);
-    }
-    for (int y = 0; y < MapSize[1]; y += 64 ) {
-      float[] relPos1 = relPos(0, y);
-      float[] relPos2 = relPos(MapSize[0], y);
-      app.line(relPos1[0], relPos1[1], relPos2[0], relPos2[1]);
-    }
+	for (int x = 0; x < MapSize[0]; x += 64 ) {
+	  float[] relPos1 = relPos(x, 0);
+	  float[] relPos2 = relPos(x, MapSize[1]);
+	  app.line(relPos1[0], relPos1[1], relPos2[0], relPos2[1]);
+	}
+	for (int y = 0; y < MapSize[1]; y += 64 ) {
+	  float[] relPos1 = relPos(0, y);
+	  float[] relPos2 = relPos(MapSize[0], y);
+	  app.line(relPos1[0], relPos1[1], relPos2[0], relPos2[1]);
+}
   }
-
+  void exerciseCmds(PlayerInput playerInputs){
+      self.selfMove(playerInputs);
+      self.Shoot(playerInputs);
+  }
   void Run() {
     //server run
     //Render();
     for (Entity e : Entities) {
-      //e.Render();
       e.Move();
       e.CheckCollisions(); 
       e.Update();
+      //e.Render();
     }
 
     for (GameObject g : GameObjects) {
-      //g.Render();
       g.CheckCollisions();
+	  //g.Render();
     }
     cleanEntites();
   }
@@ -169,11 +200,17 @@ class World implements Serializable {
     }
   }
 
-  // hjælpefunktion til at beregne position på ifht position af spiller/"sig selv"
+  // hjælpefunktioner til at beregne position på ifht position af spiller/"sig selv"
   float[] relPos(float x, float y) {
     return new float[]{
       x - self.pos.x + app.width/2, 
       y - self.pos.y + app.height/2
+    };
+  }
+  float[] relPos(float x, float y, float ax, float ay) {
+    return new float[]{
+      x - ax + app.width/2, 
+      y - ay + app.height/2
     };
   }
   

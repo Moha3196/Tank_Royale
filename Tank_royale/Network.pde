@@ -93,13 +93,9 @@ class Session {
 
   // metode til at sende kommandoer til server 
   void sendPlayerCMDs() {
-    byte[] payload = new byte[world.playerInputs.length + 1];
-    for (int i = 1; i < world.playerInputs.length; i++) {
-      payload[i] = world.playerInputs[i-1] ? (byte) 1: (byte) 0;
-    }
-    payload[0] = PacketType.playerCommand;
-    udp.send(payload, ServerIP, ServerPort);
+    udp.send(new String(concat(new byte[]{(PacketType.playerCommand)}, world.Serialize(playerInputs))), ServerIP, ServerPort);
   }
+  
   void receiveNewGS(char packT, byte[] payload){
   if(packT == PacketType.gameState){
     world.Entities = (LinkedList<Entity>)world.DeSerialize(payload);

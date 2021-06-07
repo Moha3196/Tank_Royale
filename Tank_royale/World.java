@@ -3,12 +3,38 @@ import processing.core.*;
 import java.util.*;
 import java.io.*;
 
+
+class PlayerInput implements Serializable {
+    boolean moveNorth = false;
+    boolean moveWest = false;
+    boolean moveSouth = false;
+    boolean moveEast = false;
+    
+    boolean shoot = false;
+    
+    int[] aimPos = new int[2]; 
+    
+    transient PApplet app;
+    transient PGraphics g; 
+    
+    void bind(PApplet a) {
+        app = a;
+        g = app.g;
+    }
+    
+    void setAimPos (){
+      aimPos = new int[]{app.mouseX, app.mouseY};
+    }
+}
+
+
 class World implements Serializable {
+// indstillinger til spilltet
   int[] MapSize = {256*8, 256*8};
   ArrayList<int[]> SpawnPoints = new ArrayList<int[]>(3);
-  float MaxHP = (float) 50;
-  float FireRate = (float) 15.0;
-  int BulletDmg = 5;
+  float MaxHP = (float) 100;
+  float FireRate = (float) 3.0;
+  int BulletDmg = 30;
   float BulletSpeed = 10;
   int BulletSize = 5;
   float MovementSpeed = (float) 3.5;
@@ -18,16 +44,26 @@ class World implements Serializable {
   //String[] EnabledPowurups;
   //int UpdateRate = 30;
   //int Chunksize = 4;
+
+  
+  int[] StdWindowSize = {1280, 720}; 
+
+// vigtige variable til gameplay:
+  // specificere "self" dvs hvem man kontrollere.
   Player self;
+  // liste med Entities, dvs players & Bulltets
   LinkedList<Entity> Entities = new LinkedList<Entity>();
+  // liste med game objects
   ArrayList<GameObject> GameObjects = new ArrayList<GameObject>();
-  boolean[] playerInputs = new boolean[5];
+  // liste med alle spiller inputs status, format : {W, A, S, D, "LeftMouseButton"}
+  //boolean[] playerInputs = new boolean[5]; // removed as of 07-05 in favor of playerInput class
+
+  // "transient" betyder at dette data ikke skal serialiseres, da det ikke giver mening at sende en kopi af en papplet over internettet 
   transient PApplet app;
   transient PGraphics g; 
 
-
-
-
+  
+  // To forskellige kontrukterer til demo mode og online mode, differentieret via argumenter.
   //Demo
   World(PApplet PApp, Boolean b) {
     bind(PApp);
@@ -41,8 +77,6 @@ class World implements Serializable {
     GameObjects.add(new Wall(app, this, new PVector(200, 200), new PVector(200, 600), 120, 5));
     self = (Player)Entities.get(0);
   }
-
-
 
   //World
   World(PApplet PApp) {
@@ -96,6 +130,8 @@ class World implements Serializable {
 
   }
 
+  
+  // bind funktion der bnder objektet fast til app, for at kunne fx render.
   void bind (PApplet a) {
     app = a;
     g = app.g;
@@ -118,85 +154,91 @@ class World implements Serializable {
     app.strokeWeight(1);
     app.fill(200);
     app.stroke(30,30);
-    for (int x = 0; x < MapSize[0]; x += 64 ) {
-      float[] relPos1 = relPos(x, 0);
-      float[] relPos2 = relPos(x, MapSize[1]);
-      app.line(relPos1[0], relPos1[1], relPos2[0], relPos2[1]);
-    }
-    for (int y = 0; y < MapSize[1]; y += 64 ) {
-      float[] relPos1 = relPos(0, y);
-      float[] relPos2 = relPos(MapSize[0], y);
-      app.line(relPos1[0], relPos1[1], relPos2[0], relPos2[1]);
-    }
+    app.strokeWeight(1);
+	for (int x = 0; x < MapSize[0]; x += 64 ) {
+	  float[] relPos1 = relPos(x, 0);
+	  float[] relPos2 = relPos(x, MapSize[1]);
+	  app.line(relPos1[0], relPos1[1], relPos2[0], relPos2[1]);
+	}
+	for (int y = 0; y < MapSize[1]; y += 64 ) {
+	  float[] relPos1 = relPos(0, y);
+	  float[] relPos2 = relPos(MapSize[0], y);
+	  app.line(relPos1[0], relPos1[1], relPos2[0], relPos2[1]);
+}
   }
-
-
-
-  void Run() {
-  //client run
+    
+  void exerciseCmds(PlayerInput playerInputs){
+    //client run
     self.selfMove(playerInputs);
-    Render();
-    for (Entity e : Entities) {
-      e.Render();
-      e.Move();
-      e.CheckCollisions(); 
-      e.Update();
-    }
-
-    for (GameObject g : GameObjects) {
-      g.Render();
-      g.CheckCollisions();
-    }
     self.Shoot(playerInputs);
-    cleanEntites();
   }
-
-
-  void cleanEntites() {
-    Iterator iter = Entities.iterator();
-    Entity e;
-    while (iter.hasNext()) {
-      e = (Entity)iter.next();
-      if (e.clearNextFrame) {
-        iter.remove();
+    
+  void Run() {
+      for (Entity e : Entities) {
+        e.Move();
+        e.CheckCollisions(); 
+        e.Update();
+        e.Render();
       }
-    }
-  }
-
+      for (GameObject g : GameObjects) {
+        g.CheckCollisions();
+        g.Render();
+      }
+      cleanEntites();
+      Render();
+ }
+    
+  void cleanEntites() {
+      Iterator iter = Entities.iterator();
+      Entity e;
+      while(iter.hasNext()) {
+        e = (Entity)iter.next();
+        if (e.clearNextFrame) {
+              iter.remove();
+        }
+      }
+ }
+    
   float[] relPos(float x, float y) {
+      return new float[]{
+          x - self.pos.x + app.width / 2, 
+          y - self.pos.y + app.height / 2
+      };
+ }
+ 
+  float[] relPos(float x, float y, float ax, float ay) {
     return new float[]{
-      x - self.pos.x + app.width/2, 
-      y - self.pos.y + app.height/2
+      x - ax + app.width/2, 
+      y - ay + app.height/2
     };
   }
-  
-  
-  byte[] Serialize (Object obj) {
-    try {
-      ByteArrayOutputStream bout = new ByteArrayOutputStream();
-      ObjectOutput oout = new ObjectOutputStream(bout);
-      oout.writeObject(obj);
-      oout.flush();
-      oout.close();
-      return bout.toByteArray();
-    }
-    catch(IOException e) {
-      app.println("failed to start serializing");
-      app.println(e);
-      return new byte[] {};
-    }
-  }
-
-  Object DeSerialize(byte[] bytes)
-  {
-    try {
-      ObjectInputStream in = new ObjectInputStream(new ByteArrayInputStream(bytes));
-      return in.readObject();
-    }
-    catch(Exception e) {
-      app.println(e);
-      app.println(1);
-      return e;
-    }
-  }
+    
+  byte[] Serialize(Object obj) {
+      try {
+          ByteArrayOutputStream bout = new ByteArrayOutputStream();
+          ObjectOutput oout = new ObjectOutputStream(bout);
+          oout.writeObject(obj);
+          oout.flush();
+          oout.close();
+          return bout.toByteArray();
+      }
+      catch(IOException e) {
+          app.println("failed to start serializing");
+          app.println(e);
+          return new byte[] {};
+      }
+ }
+    
+    Object DeSerialize(byte[] bytes)
+        {
+        try {
+            ObjectInputStream in = new ObjectInputStream(new ByteArrayInputStream(bytes));
+            return in.readObject();
+        }
+        catch(Exception e) {
+            app.println(e);
+            app.println(1);
+            return e;
+        }
+ }
 }

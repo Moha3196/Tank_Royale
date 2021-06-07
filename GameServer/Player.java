@@ -71,15 +71,16 @@ class Player extends Entity {
     
     // DisplayName render
     app.fill(0, 90);
-    app.text(DisplayName, realPos[0] - DisplayName.length() * (float)3.2, realPos[1] + 25);
+    app.text(DisplayName, realPos[0] - DisplayName.length() * (float) 3.2, realPos[1] + 25);
   }
   
   // skydefunktion basseret på input.
-  void Shoot(boolean[] inputs) {
-    if (inputs[4] && isSelf) {
+  void Shoot(PlayerInput inputs) {
+    if (inputs.shoot) {
       if ( app.millis() - lastTimeShot > 1.0/world.FireRate*1000) {
-        float[] realPos = world.relPos(pos.x, pos.y);
-        float[] diffVector = {realPos[0] - app.mouseX, realPos[1] - app.mouseY};
+        //float[] realPos = world.relPos(pos.x, pos.y, pos.x, pos.y);
+        float[] diffVector = {world.StdWindowSize[0]/2 - inputs.aimPos[0], world.StdWindowSize[1]/2 - inputs.aimPos[1]};
+        app.println(diffVector);
         PVector bulletVel = new PVector(-diffVector[0], -diffVector[1]).setMag(world.BulletSpeed);
         world.Entities.add(new Bullet(app, this, pos.copy(), bulletVel));
         //world.Entities.add(new Bullet(this, pos, bulletVel));
@@ -89,19 +90,19 @@ class Player extends Entity {
   }
 
   // sætter vel baseret på inputs.
-  void selfMove(boolean[] inputs){
+  void selfMove(PlayerInput playerInputs){
         vel.x = 0;
         vel.y = 0;
-        if (inputs[1]) { 
+        if (playerInputs.moveWest) { 
           vel.x = -1;
-        } else if (inputs[3]) { 
+        } else if (playerInputs.moveEast) { 
           vel.x =  1;
         } else {
           vel.x = 0;
         }
-        if (inputs[0]) { 
+        if (playerInputs.moveNorth) { 
           vel.y = -1;
-        } else if (inputs[2]) { 
+        } else if (playerInputs.moveSouth) { 
           vel.y =  1;
         } else {
           vel.y = 0;
