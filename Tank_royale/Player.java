@@ -76,7 +76,7 @@ class Player extends Entity {
   
   // skydefunktion basseret på input.
   void Shoot(PlayerInput inputs) {
-    if (inputs.shoot && isSelf) {
+    if (inputs.shoot && isSelf && alive) {
       if ( app.millis() - lastTimeShot > 1.0/world.FireRate*1000) {
         float[] realPos = world.relPos(pos.x, pos.y);
         float[] diffVector = {realPos[0] - inputs.aimPos[0], realPos[1] - inputs.aimPos[1]};
