@@ -80,7 +80,6 @@ class Player extends Entity {
       if ( app.millis() - lastTimeShot > 1.0/world.FireRate*1000) {
         //float[] realPos = world.relPos(pos.x, pos.y, pos.x, pos.y);
         float[] diffVector = {world.StdWindowSize[0]/2 - inputs.aimPos[0], world.StdWindowSize[1]/2 - inputs.aimPos[1]};
-        app.println(diffVector);
         PVector bulletVel = new PVector(-diffVector[0], -diffVector[1]).setMag(world.BulletSpeed);
         world.Entities.add(new Bullet(app, this, pos.copy(), bulletVel));
         //world.Entities.add(new Bullet(this, pos, bulletVel));
